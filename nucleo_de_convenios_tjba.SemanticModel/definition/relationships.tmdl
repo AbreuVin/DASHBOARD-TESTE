@@ -1,0 +1,238 @@
+relationship 10bd6e15-3003-4ed3-86bb-de8c8ebaf42d
+	joinOnDateBehavior: datePartOnly
+	fromColumn: aditivos.dataAssinaturaAditivo
+	toColumn: LocalDateTable_126e5498-f052-43cf-87f1-92c5f9a791ca.Date
+
+relationship e8c323db-1e39-42d0-8acb-d5ecb37ada98
+	joinOnDateBehavior: datePartOnly
+	fromColumn: aditivos.dataPublicacaoAditivo
+	toColumn: LocalDateTable_a2b0d046-9596-4e14-b5a4-bffda2842d06.Date
+
+relationship b5fa7c87-1459-4aa9-b1be-04a58f57fac4
+	joinOnDateBehavior: datePartOnly
+	fromColumn: aditivos.dataFimVigenciaAditivo
+	toColumn: LocalDateTable_73939c50-065f-4a3d-895c-c547696b6c07.Date
+
+relationship aa7ba4ad-d378-49d4-bf7a-49097b9c16ea
+	joinOnDateBehavior: datePartOnly
+	fromColumn: aditivos.Modificado
+	toColumn: LocalDateTable_f318885e-6160-400c-b7e2-1ff13d05ffa7.Date
+
+relationship bcbdb074-dbee-45f8-b968-fd4ee59034d0
+	joinOnDateBehavior: datePartOnly
+	fromColumn: aditivos.Criado
+	toColumn: LocalDateTable_343f977c-3c80-4238-8368-46123ea0c46a.Date
+
+relationship 8ff98f3a-638d-43c3-a4b6-f9c967e977bb
+	joinOnDateBehavior: datePartOnly
+	fromColumn: tematicasInstrumentos.Criado
+	toColumn: LocalDateTable_d4606553-8e56-4911-bec4-ad7b325938c9.Date
+
+relationship 499aa8d2-71ad-431f-af4b-23cb1a5e0215
+	joinOnDateBehavior: datePartOnly
+	fromColumn: tematicasInstrumentos.Modificado
+	toColumn: LocalDateTable_77435c2d-93dc-4f51-8f1e-df8b0b231072.Date
+
+relationship 948cbc34-df5d-454f-bf5f-cd7683a18280
+	joinOnDateBehavior: datePartOnly
+	fromColumn: tiposInstrumento.Modificado
+	toColumn: LocalDateTable_dafa97ac-a1a9-402a-aa8f-ae273e2ab2ef.Date
+
+relationship de10ab03-32e9-4a83-bbac-c2c78d79b130
+	joinOnDateBehavior: datePartOnly
+	fromColumn: tiposInstrumento.Criado
+	toColumn: LocalDateTable_6e290e5a-9f41-4f19-9c1c-a14593f6c542.Date
+
+relationship c49a543b-7e82-49ba-910a-c513a158c534
+	joinOnDateBehavior: datePartOnly
+	fromColumn: unidadesNegocio.Modificado
+	toColumn: LocalDateTable_a9cc8d3a-dacc-4f5e-ae58-64010f09c8ec.Date
+
+relationship 2b49e93e-f368-4273-853f-b7482cb1cbd8
+	joinOnDateBehavior: datePartOnly
+	fromColumn: unidadesNegocio.Criado
+	toColumn: LocalDateTable_dc0c564a-9fc2-4b03-9e34-0c538f474ca4.Date
+
+relationship c77f035a-8609-4a65-8e0f-89bc244991c3
+	joinOnDateBehavior: datePartOnly
+	fromColumn: tematicas.Modificado
+	toColumn: LocalDateTable_2bc67d64-6a6c-4ddd-a42b-c1f1cd026a0e.Date
+
+relationship 3635a1c2-0be2-4265-8920-0083ec5a2074
+	joinOnDateBehavior: datePartOnly
+	fromColumn: tematicas.Criado
+	toColumn: LocalDateTable_b6afce52-af62-4b48-8a3a-aeac1f3be239.Date
+
+relationship 050accf7-aa81-41b2-bd7f-b3b7504879a2
+	joinOnDateBehavior: datePartOnly
+	fromColumn: situacoesTermo.Modificado
+	toColumn: LocalDateTable_a0c65434-9670-4476-8a9d-93dd720f3e52.Date
+
+relationship ccd412c1-92c4-4e91-9ca2-7157b81380d6
+	joinOnDateBehavior: datePartOnly
+	fromColumn: situacoesTermo.Criado
+	toColumn: LocalDateTable_7cf7037c-dbcd-4694-a720-8eac3e464ab3.Date
+
+relationship 41f86877-92c9-4180-977d-40480f98b67f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: situacoesProcesso.Modificado
+	toColumn: LocalDateTable_92c06db8-a256-4dc0-b452-c342614d0595.Date
+
+relationship 5c5b665a-b9af-4dab-89df-2de17941acaa
+	joinOnDateBehavior: datePartOnly
+	fromColumn: situacoesProcesso.Criado
+	toColumn: LocalDateTable_8e019368-0854-4bc0-bbf0-e2f175b36e88.Date
+
+relationship dab0a68b-98d8-46c1-bb39-ec375bdd76f1
+	joinOnDateBehavior: datePartOnly
+	fromColumn: relacaoInstrumentos.Modificado
+	toColumn: LocalDateTable_3f0d56fe-b1c4-46ef-9512-4f8de189fe1b.Date
+
+relationship 3fa11210-6c27-4d5e-ae09-d4181ad3bbc3
+	joinOnDateBehavior: datePartOnly
+	fromColumn: relacaoInstrumentos.Criado
+	toColumn: LocalDateTable_71856146-6476-4363-94cc-74e459036b39.Date
+
+relationship 21c8559f-752c-4d1d-a2a2-0964a608e026
+	joinOnDateBehavior: datePartOnly
+	fromColumn: participesInstrumentos.Modificado
+	toColumn: LocalDateTable_fb5a4e56-d837-4e34-b68a-6c1da816bf48.Date
+
+relationship 138a6228-e1a8-4ded-9e32-7c63aa1050d6
+	joinOnDateBehavior: datePartOnly
+	fromColumn: participesInstrumentos.Criado
+	toColumn: LocalDateTable_22828177-7619-48f0-82f3-6ed0ba4e96a3.Date
+
+relationship d20cae03-973c-43ea-83b9-bf8ec1a2d144
+	joinOnDateBehavior: datePartOnly
+	fromColumn: participes.Modificado
+	toColumn: LocalDateTable_69848280-bd68-48d8-a510-95611c101265.Date
+
+relationship e3ad4ab9-5e1e-4398-8508-1310df90c6f0
+	joinOnDateBehavior: datePartOnly
+	fromColumn: participes.Criado
+	toColumn: LocalDateTable_137d0eda-2e51-444f-b4e2-5b149f4c6b8c.Date
+
+relationship a465abf9-5fcc-44d8-9da6-0166132af347
+	joinOnDateBehavior: datePartOnly
+	fromColumn: intervenientesInstrumentos.Modificado
+	toColumn: LocalDateTable_c4409233-78c1-4c76-8adf-459f0dc255f7.Date
+
+relationship 9480853b-1cc6-4551-b799-1e5e53f8fe61
+	joinOnDateBehavior: datePartOnly
+	fromColumn: intervenientesInstrumentos.Criado
+	toColumn: LocalDateTable_bf65359e-d528-40c2-987a-504b8c04948a.Date
+
+relationship c188dbfd-99eb-4aa8-9013-2151d34e1417
+	joinOnDateBehavior: datePartOnly
+	fromColumn: intervenientes.Modificado
+	toColumn: LocalDateTable_f0118c28-6be8-4158-9db6-ba1f6b9aa609.Date
+
+relationship 3cdfd4c4-7cb2-4a40-9767-2640758fc6a9
+	joinOnDateBehavior: datePartOnly
+	fromColumn: intervenientes.Criado
+	toColumn: LocalDateTable_548c913f-022a-46a4-bd6d-f3b7197da8ae.Date
+
+relationship 64669b3f-085d-4274-81b6-5b350dd76988
+	joinOnDateBehavior: datePartOnly
+	fromColumn: instrumentos.dataAutuacaoProcesso
+	toColumn: LocalDateTable_200b009c-062f-478d-b0f5-d993e43edae3.Date
+
+relationship b561c9a7-9ef0-4ff6-91ad-3766098d3f8f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: instrumentos.dataAssinaturaTermo
+	toColumn: LocalDateTable_22329f69-df4f-4673-957f-106529f782b6.Date
+
+relationship 1811efc6-71ca-44d8-9abb-ae3a63b6be9b
+	joinOnDateBehavior: datePartOnly
+	fromColumn: instrumentos.dataPublicacaoTermo
+	toColumn: LocalDateTable_28664c27-539b-40ff-a889-7f8c464f8de2.Date
+
+relationship 5604579e-590e-4bc1-81dc-2604e8593649
+	joinOnDateBehavior: datePartOnly
+	fromColumn: instrumentos.dataInicioVigenciaTermo
+	toColumn: LocalDateTable_3b8595cb-e606-43e4-aad7-f7fd236879a2.Date
+
+relationship fdf30716-712d-4792-9477-a768e0bc4295
+	joinOnDateBehavior: datePartOnly
+	fromColumn: instrumentos.dataFimVigenciaTermo
+	toColumn: LocalDateTable_10dd32a4-2b04-4e2b-9346-341849fba722.Date
+
+relationship 00013cf6-305e-4a0e-975a-1c76a6839ba3
+	joinOnDateBehavior: datePartOnly
+	fromColumn: instrumentos.Criado
+	toColumn: LocalDateTable_e99c5ea5-3cdd-4e5e-a993-a03cc21f2b5d.Date
+
+relationship 86fa5f98-59f1-4480-8838-6e5e9a2722c2
+	joinOnDateBehavior: datePartOnly
+	fromColumn: instrumentos.Modificado
+	toColumn: LocalDateTable_a4b0c9a1-edbb-43c3-92f4-e79c314529ac.Date
+
+relationship 6cc46991-47aa-4e88-ad14-895959da202c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: instrumentos.dataFimVigenciaEfetiva
+	toColumn: LocalDateTable_722c0720-340d-4f12-9a1e-f24d46c9940c.Date
+
+relationship 7dea6d39-bdec-4d4b-b854-54536596cc60
+	joinOnDateBehavior: datePartOnly
+	fromColumn: historicoAlteracoes.dataAlteracao
+	toColumn: LocalDateTable_021d75fd-2189-43c1-b70e-cf4cbc6451b5.Date
+
+relationship 79204339-9996-4f36-84cc-850165aca4f4
+	joinOnDateBehavior: datePartOnly
+	fromColumn: historicoAlteracoes.Criado
+	toColumn: LocalDateTable_a74082fb-52e5-4748-8bd1-5668dbf4b248.Date
+
+relationship a8316b83-8052-4564-b0e7-e928c8f0f173
+	joinOnDateBehavior: datePartOnly
+	fromColumn: historicoAlteracoes.Modificado
+	toColumn: LocalDateTable_a3018f1e-1de5-4d42-9963-f77c91690a05.Date
+
+relationship AutoDetected_d4038ec7-a5d5-4d03-b513-0bf64448ca34
+	fromColumn: relacaoInstrumentos.'Criado por.title'
+	toColumn: intervenientes.'Criado por.title'
+
+relationship AutoDetected_5810a09d-d53e-4c69-9bc5-4f6525aba7ec
+	fromColumn: participes.'Criado por.title'
+	toColumn: intervenientes.'Criado por.title'
+
+relationship AutoDetected_ad7609f5-d1cb-4e45-8944-af3b35b97db4
+	fromColumn: aditivos.'idInstrumento.lookupId'
+	toColumn: relacaoInstrumentos.'idInstrumentoOrigem.lookupId'
+
+relationship AutoDetected_7b63677f-6b5b-4cd5-9537-d65fd8f563f6
+	fromColumn: aditivos.'Criado por.title'
+	toColumn: acessoTeste.'Pessoas.title'
+
+relationship AutoDetected_3fbdf835-4faf-43f5-a18a-1fda4480ed8d
+	fromColumn: tematicasInstrumentos.'Criado por.title'
+	toColumn: acessoTeste.'Pessoas.title'
+
+relationship AutoDetected_1c427d28-5615-4f85-94ed-4b01d056e25c
+	fromColumn: tiposInstrumento.'Criado por.title'
+	toColumn: acessoTeste.'Pessoas.title'
+
+relationship AutoDetected_681d5829-4d9f-4f6f-8123-d3d555b45310
+	fromColumn: unidadesNegocio.'Criado por.title'
+	toColumn: acessoTeste.'Pessoas.title'
+
+relationship AutoDetected_3a7179e3-8e4d-4e2e-a460-d2f031a34cfb
+	fromColumn: tematicas.'Criado por.title'
+	toColumn: acessoTeste.'Pessoas.title'
+
+relationship AutoDetected_9c91ab5f-72e0-4b73-b15e-3e7dec2c0c0a
+	fromColumn: situacoesTermo.'Criado por.title'
+	toColumn: acessoTeste.'Pessoas.title'
+
+relationship AutoDetected_5a7de53c-5e30-4fd5-ad95-ba5423347b12
+	fromColumn: participesInstrumentos.'Criado por.title'
+	toColumn: acessoTeste.'Pessoas.title'
+
+relationship AutoDetected_cb6654bc-8c7f-4f45-af70-acb95c70db64
+	fromColumn: intervenientesInstrumentos.'Criado por.title'
+	toColumn: acessoTeste.'Pessoas.title'
+
+relationship AutoDetected_f90dc516-cc81-4069-a0fc-a0c5bc9c9854
+	fromColumn: historicoAlteracoes.'alteradoPor.title'
+	toColumn: acessoTeste.'Pessoas.title'
+

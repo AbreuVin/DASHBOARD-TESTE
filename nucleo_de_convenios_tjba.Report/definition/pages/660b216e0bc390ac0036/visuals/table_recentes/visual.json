@@ -1,0 +1,325 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "table_recentes",
+  "position": {
+    "x": 20,
+    "y": 420,
+    "z": 1300,
+    "height": 276,
+    "width": 1240,
+    "tabOrder": 11
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "instrumentos"
+                    }
+                  },
+                  "Property": "Modificado"
+                }
+              },
+              "queryRef": "instrumentos.Modificado",
+              "nativeQueryRef": "Modificado",
+              "displayName": "Atualizado"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "instrumentos"
+                    }
+                  },
+                  "Property": "numeroProcesso"
+                }
+              },
+              "queryRef": "instrumentos.numeroProcesso",
+              "nativeQueryRef": "numeroProcesso",
+              "displayName": "Processo"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "instrumentos"
+                    }
+                  },
+                  "Property": "tipoInstrumento.lookupValue"
+                }
+              },
+              "queryRef": "instrumentos.tipoInstrumento.lookupValue",
+              "nativeQueryRef": "tipoInstrumento.lookupValue",
+              "displayName": "Tipo"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "instrumentos"
+                    }
+                  },
+                  "Property": "situacaoProcesso.lookupValue"
+                }
+              },
+              "queryRef": "instrumentos.situacaoProcesso.lookupValue",
+              "nativeQueryRef": "situacaoProcesso.lookupValue",
+              "displayName": "Situação"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "instrumentos"
+                    }
+                  },
+                  "Property": "numeroTermo"
+                }
+              },
+              "queryRef": "instrumentos.numeroTermo",
+              "nativeQueryRef": "numeroTermo",
+              "displayName": "Termo"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "instrumentos"
+                    }
+                  },
+                  "Property": "dataInicioVigenciaTermo"
+                }
+              },
+              "queryRef": "instrumentos.dataInicioVigenciaTermo",
+              "nativeQueryRef": "dataInicioVigenciaTermo",
+              "displayName": "Início"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "instrumentos"
+                    }
+                  },
+                  "Property": "dataFimVigenciaEfetiva"
+                }
+              },
+              "queryRef": "instrumentos.dataFimVigenciaEfetiva",
+              "nativeQueryRef": "dataFimVigenciaEfetiva",
+              "displayName": "Fim"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "instrumentos"
+                    }
+                  },
+                  "Property": "gestorTermo.title"
+                }
+              },
+              "queryRef": "instrumentos.gestorTermo.title",
+              "nativeQueryRef": "gestorTermo.title",
+              "displayName": "Gestor"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "instrumentos"
+                  }
+                },
+                "Property": "Modificado"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#E2E8F0'"
+                    }
+                  }
+                }
+              }
+            },
+            "radius": {
+              "expr": {
+                "Literal": {
+                  "Value": "16D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Instrumentos recentes'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#0F172A'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            },
+            "fontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Segoe UI Semibold'"
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "padding": [
+        {
+          "properties": {
+            "left": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            },
+            "top": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            },
+            "right": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            },
+            "bottom": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualHeader": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

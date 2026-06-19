@@ -1,0 +1,247 @@
+table instrumentos
+	lineageTag: 1a4cf104-9b0e-4026-939c-f0af03a39c8e
+
+	column numeroProcesso
+		dataType: string
+		lineageTag: dbd0784c-f73e-4fc7-825b-e9d103f628b7
+		summarizeBy: none
+		sourceColumn: numeroProcesso
+
+		annotation SummarizationSetBy = Automatic
+
+	column dataAutuacaoProcesso
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 121db8bb-efc5-47b8-ab9e-9a6550fde892
+		summarizeBy: none
+		sourceColumn: dataAutuacaoProcesso
+
+		variation Variation
+			isDefault
+			relationship: 64669b3f-085d-4274-81b6-5b350dd76988
+			defaultHierarchy: LocalDateTable_200b009c-062f-478d-b0f5-d993e43edae3.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'tipoInstrumento.lookupValue'
+		dataType: string
+		lineageTag: 2db2e3bc-47f4-48bb-b623-c2728f07b532
+		summarizeBy: none
+		sourceColumn: tipoInstrumento.lookupValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column objetoInstrumento
+		dataType: string
+		lineageTag: 3f87f40b-1a2f-49f5-9573-abbba699b2c2
+		summarizeBy: none
+		sourceColumn: objetoInstrumento
+
+		annotation SummarizationSetBy = Automatic
+
+	column interessadosInstrumento
+		dataType: string
+		lineageTag: e708ade7-a148-4955-bb13-f5282da880c1
+		summarizeBy: none
+		sourceColumn: interessadosInstrumento
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'situacaoProcesso.lookupValue'
+		dataType: string
+		lineageTag: 2bd85ebd-04af-44db-8c81-c397d04190d4
+		summarizeBy: none
+		sourceColumn: situacaoProcesso.lookupValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'gestorTermo.title'
+		dataType: string
+		lineageTag: fb1633b1-e6b2-4275-b0e1-81827b283640
+		summarizeBy: none
+		sourceColumn: gestorTermo.title
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'gestorTermo.email'
+		dataType: string
+		lineageTag: b842f392-b812-471f-bf3a-796d0b8d9030
+		summarizeBy: none
+		sourceColumn: gestorTermo.email
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'fiscalTermo.title'
+		dataType: string
+		lineageTag: 80091778-e257-4b24-aa93-7c4e6c2132ec
+		summarizeBy: none
+		sourceColumn: fiscalTermo.title
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'fiscalTermo.email'
+		dataType: string
+		lineageTag: 5f744e3b-035c-4ca0-a766-3211dae47e32
+		summarizeBy: none
+		sourceColumn: fiscalTermo.email
+
+		annotation SummarizationSetBy = Automatic
+
+	column numeroTermo
+		dataType: string
+		lineageTag: 89e1704a-6775-4000-8c87-9da904455d01
+		summarizeBy: none
+		sourceColumn: numeroTermo
+
+		annotation SummarizationSetBy = Automatic
+
+	column dataAssinaturaTermo
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 5987d557-0a87-4a59-bc4f-4d57fdad6938
+		summarizeBy: none
+		sourceColumn: dataAssinaturaTermo
+
+		variation Variation
+			isDefault
+			relationship: b561c9a7-9ef0-4ff6-91ad-3766098d3f8f
+			defaultHierarchy: LocalDateTable_22329f69-df4f-4673-957f-106529f782b6.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column dataPublicacaoTermo
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 3af0d556-7487-4b7d-90ee-261b6b74d5f4
+		summarizeBy: none
+		sourceColumn: dataPublicacaoTermo
+
+		variation Variation
+			isDefault
+			relationship: 1811efc6-71ca-44d8-9abb-ae3a63b6be9b
+			defaultHierarchy: LocalDateTable_28664c27-539b-40ff-a889-7f8c464f8de2.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column dataInicioVigenciaTermo
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: cd8793aa-3093-478d-a2af-3979402e5eb9
+		summarizeBy: none
+		sourceColumn: dataInicioVigenciaTermo
+
+		variation Variation
+			isDefault
+			relationship: 5604579e-590e-4bc1-81dc-2604e8593649
+			defaultHierarchy: LocalDateTable_3b8595cb-e606-43e4-aad7-f7fd236879a2.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column dataFimVigenciaTermo
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 34d22be9-59b4-47ea-a252-9cbf08bcac77
+		summarizeBy: none
+		sourceColumn: dataFimVigenciaTermo
+
+		variation Variation
+			isDefault
+			relationship: fdf30716-712d-4792-9477-a768e0bc4295
+			defaultHierarchy: LocalDateTable_10dd32a4-2b04-4e2b-9346-341849fba722.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column observacoes
+		dataType: string
+		lineageTag: 1ca7128e-81b6-4b94-af32-67697adc1ed2
+		summarizeBy: none
+		sourceColumn: observacoes
+
+		annotation SummarizationSetBy = Automatic
+
+	column Criado
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: a299d082-4bc5-4133-a8a7-29add3031eb0
+		summarizeBy: none
+		sourceColumn: Criado
+
+		variation Variation
+			isDefault
+			relationship: 00013cf6-305e-4a0e-975a-1c76a6839ba3
+			defaultHierarchy: LocalDateTable_e99c5ea5-3cdd-4e5e-a993-a03cc21f2b5d.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Modificado
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: d33c336d-0deb-4c4f-87f2-21d3472e2cef
+		summarizeBy: none
+		sourceColumn: Modificado
+
+		variation Variation
+			isDefault
+			relationship: 86fa5f98-59f1-4480-8838-6e5e9a2722c2
+			defaultHierarchy: LocalDateTable_a4b0c9a1-edbb-43c3-92f4-e79c314529ac.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column dataFimVigenciaEfetiva
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 64e1b8e3-2fdc-4d5b-8452-e74f7e72d848
+		summarizeBy: none
+		sourceColumn: dataFimVigenciaEfetiva
+
+		variation Variation
+			isDefault
+			relationship: 6cc46991-47aa-4e88-ad14-895959da202c
+			defaultHierarchy: LocalDateTable_722c0720-340d-4f12-9a1e-f24d46c9940c.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column origemTermo
+		dataType: string
+		lineageTag: c35846be-5a60-4774-83bb-8e4ddf9bbd0e
+		summarizeBy: none
+		sourceColumn: origemTermo
+
+		annotation SummarizationSetBy = Automatic
+
+	partition instrumentos = m
+		mode: import
+		source =
+				let
+				    Fonte = SharePoint.Tables("https://tjbacotec.sharepoint.com/sites/NucleodeConveniosDev", [Implementation="2.0", ViewMode="All"]),
+				    #"ad724366-010e-4727-bfe2-67fce447b27f" = Fonte{[Id="ad724366-010e-4727-bfe2-67fce447b27f"]}[Items],
+				    #"Colunas Removidas" = Table.RemoveColumns(#"ad724366-010e-4727-bfe2-67fce447b27f",{"Aplicativo Modificado por", "Aplicativo Criado por", "O item é um Registro", "Rótulo aplicado por", "Rótulo de retenção Aplicado", "Rótulo de retenção", "Configuração do rótulo", "Contagem de Elementos Filho da Pasta", "Contagem de Itens Filhos", "Tipo", "Editar", "Anexos", "Versão", "Tipo de Conteúdo", "ID", "ID de Ativo de Conformidade", "Pressione Delete para excluir o ícone.", "Title"}),
+				    #"Criado por Expandido" = Table.ExpandListColumn(#"Colunas Removidas", "Criado por"),
+				    #"Criado por Expandido1" = Table.ExpandRecordColumn(#"Criado por Expandido", "Criado por", {"id", "title", "email", "sip", "picture", "jobTitle"}, {"Criado por.id", "Criado por.title", "Criado por.email", "Criado por.sip", "Criado por.picture", "Criado por.jobTitle"}),
+				    #"Colunas Removidas1" = Table.RemoveColumns(#"Criado por Expandido1",{"Criado por.id", "Criado por.title", "Criado por.email", "Criado por.sip", "Criado por.picture", "Criado por.jobTitle"}),
+				    #"Modificado por Expandido" = Table.ExpandListColumn(#"Colunas Removidas1", "Modificado por"),
+				    #"Modificado por Expandido1" = Table.ExpandRecordColumn(#"Modificado por Expandido", "Modificado por", {"id", "title", "email", "sip", "picture", "jobTitle"}, {"Modificado por.id", "Modificado por.title", "Modificado por.email", "Modificado por.sip", "Modificado por.picture", "Modificado por.jobTitle"}),
+				    #"Colunas Removidas2" = Table.RemoveColumns(#"Modificado por Expandido1",{"Modificado por.id", "Modificado por.title", "Modificado por.email", "Modificado por.sip", "Modificado por.picture", "Modificado por.jobTitle"}),
+				    #"unidadeNegocio Expandido" = Table.ExpandListColumn(#"Colunas Removidas2", "unidadeNegocio"),
+				    #"unidadeNegocio Expandido1" = Table.ExpandRecordColumn(#"unidadeNegocio Expandido", "unidadeNegocio", {"lookupId", "lookupValue", "isSecretFieldValue"}, {"unidadeNegocio.lookupId", "unidadeNegocio.lookupValue", "unidadeNegocio.isSecretFieldValue"}),
+				    #"Colunas Removidas3" = Table.RemoveColumns(#"unidadeNegocio Expandido1",{"unidadeNegocio.lookupId", "unidadeNegocio.lookupValue", "unidadeNegocio.isSecretFieldValue"}),
+				    #"Colunas Reordenadas" = Table.ReorderColumns(#"Colunas Removidas3",{"numeroProcesso", "dataAutuacaoProcesso", "tipoInstrumento", "objetoInstrumento", "interessadosInstrumento", "situacaoProcesso", "gestorTermo", "fiscalTermo", "numeroTermo", "dataAssinaturaTermo", "dataPublicacaoTermo", "dataInicioVigenciaTermo", "dataFimVigenciaTermo", "situacaoTermo", "observacoes", "Criado", "Modificado", "dataFimVigenciaEfetiva", "origemTermo"}),
+				    #"situacaoTermo Expandido" = Table.ExpandListColumn(#"Colunas Reordenadas", "situacaoTermo"),
+				    #"situacaoTermo Expandido1" = Table.ExpandRecordColumn(#"situacaoTermo Expandido", "situacaoTermo", {"lookupId", "lookupValue", "isSecretFieldValue"}, {"situacaoTermo.lookupId", "situacaoTermo.lookupValue", "situacaoTermo.isSecretFieldValue"}),
+				    #"Colunas Removidas4" = Table.RemoveColumns(#"situacaoTermo Expandido1",{"situacaoTermo.lookupId", "situacaoTermo.lookupValue", "situacaoTermo.isSecretFieldValue"}),
+				    #"fiscalTermo Expandido" = Table.ExpandListColumn(#"Colunas Removidas4", "fiscalTermo"),
+				    #"fiscalTermo Expandido1" = Table.ExpandRecordColumn(#"fiscalTermo Expandido", "fiscalTermo", {"id", "title", "email", "sip", "picture", "jobTitle"}, {"fiscalTermo.id", "fiscalTermo.title", "fiscalTermo.email", "fiscalTermo.sip", "fiscalTermo.picture", "fiscalTermo.jobTitle"}),
+				    #"gestorTermo Expandido" = Table.ExpandListColumn(#"fiscalTermo Expandido1", "gestorTermo"),
+				    #"gestorTermo Expandido1" = Table.ExpandRecordColumn(#"gestorTermo Expandido", "gestorTermo", {"id", "title", "email", "sip", "picture", "jobTitle"}, {"gestorTermo.id", "gestorTermo.title", "gestorTermo.email", "gestorTermo.sip", "gestorTermo.picture", "gestorTermo.jobTitle"}),
+				    #"situacaoProcesso Expandido" = Table.ExpandListColumn(#"gestorTermo Expandido1", "situacaoProcesso"),
+				    #"situacaoProcesso Expandido1" = Table.ExpandRecordColumn(#"situacaoProcesso Expandido", "situacaoProcesso", {"lookupId", "lookupValue", "isSecretFieldValue"}, {"situacaoProcesso.lookupId", "situacaoProcesso.lookupValue", "situacaoProcesso.isSecretFieldValue"}),
+				    #"tipoInstrumento Expandido" = Table.ExpandListColumn(#"situacaoProcesso Expandido1", "tipoInstrumento"),
+				    #"tipoInstrumento Expandido1" = Table.ExpandRecordColumn(#"tipoInstrumento Expandido", "tipoInstrumento", {"lookupId", "lookupValue", "isSecretFieldValue"}, {"tipoInstrumento.lookupId", "tipoInstrumento.lookupValue", "tipoInstrumento.isSecretFieldValue"}),
+				    #"Colunas Removidas5" = Table.RemoveColumns(#"tipoInstrumento Expandido1",{"tipoInstrumento.lookupId", "tipoInstrumento.isSecretFieldValue", "situacaoProcesso.lookupId", "situacaoProcesso.isSecretFieldValue", "gestorTermo.id", "gestorTermo.sip", "gestorTermo.picture", "gestorTermo.jobTitle", "fiscalTermo.id", "fiscalTermo.sip", "fiscalTermo.picture", "fiscalTermo.jobTitle"})
+				in
+				    #"Colunas Removidas5"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

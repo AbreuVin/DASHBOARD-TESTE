@@ -1,0 +1,54 @@
+table acessoTeste
+	lineageTag: 68c69e60-3acb-43da-a813-b015b82e201c
+
+	column 'Pessoas.title'
+		dataType: string
+		lineageTag: f5eabadb-ff1b-4b51-8166-9ec7c2890830
+		summarizeBy: none
+		sourceColumn: Pessoas.title
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Pessoas.email'
+		dataType: string
+		lineageTag: 6693f85a-f5b2-423f-9b76-9cd4aefe1cf4
+		summarizeBy: none
+		sourceColumn: Pessoas.email
+
+		annotation SummarizationSetBy = Automatic
+
+	column nivelAcesso
+		dataType: string
+		lineageTag: 25dd2c2f-b01d-4f12-9452-0007925fbcff
+		summarizeBy: none
+		sourceColumn: nivelAcesso
+
+		annotation SummarizationSetBy = Automatic
+
+	column ativo
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: e7ce611a-7b75-4e88-9ca4-89368d108e23
+		summarizeBy: none
+		sourceColumn: ativo
+
+		annotation SummarizationSetBy = Automatic
+
+	partition acessoTeste = m
+		mode: import
+		source =
+				let
+				    Fonte = SharePoint.Tables("https://tjbacotec.sharepoint.com/sites/NucleodeConveniosDev", [Implementation="2.0", ViewMode="All"]),
+				    #"4bbd514c-4be8-4e4a-8273-d0620b1f39ad" = Fonte{[Id="4bbd514c-4be8-4e4a-8273-d0620b1f39ad"]}[Items],
+				    #"Pessoas Expandido" = Table.ExpandListColumn(#"4bbd514c-4be8-4e4a-8273-d0620b1f39ad", "Pessoas"),
+				    #"Pessoas Expandido1" = Table.ExpandRecordColumn(#"Pessoas Expandido", "Pessoas", {"id", "title", "email", "sip", "picture", "jobTitle"}, {"Pessoas.id", "Pessoas.title", "Pessoas.email", "Pessoas.sip", "Pessoas.picture", "Pessoas.jobTitle"}),
+				    #"Colunas Removidas" = Table.RemoveColumns(#"Pessoas Expandido1",{"Pessoas.id", "Pessoas.sip", "Pessoas.picture", "Título", "Pressione Delete para excluir o ícone.", "ID de Ativo de Conformidade", "Tipo de Conteúdo", "Criado por", "Modificado por", "Versão", "Anexos", "Editar", "Tipo", "Contagem de Itens Filhos", "Contagem de Elementos Filho da Pasta", "Configuração do rótulo", "Rótulo de retenção", "Rótulo de retenção Aplicado", "Rótulo aplicado por", "O item é um Registro", "Aplicativo Criado por", "Aplicativo Modificado por", "ID"}),
+				    #"Colunas Reordenadas" = Table.ReorderColumns(#"Colunas Removidas",{"Pessoas.title", "Pessoas.email", "Pessoas.jobTitle", "nivelAcesso", "Criado", "Modificado"}),
+				    #"Colunas Removidas1" = Table.RemoveColumns(#"Colunas Reordenadas",{"Pessoas.jobTitle", "Criado", "Modificado"})
+				in
+				    #"Colunas Removidas1"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

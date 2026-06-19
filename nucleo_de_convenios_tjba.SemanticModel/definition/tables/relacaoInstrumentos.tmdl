@@ -1,0 +1,152 @@
+table relacaoInstrumentos
+	lineageTag: e9c3baf8-5ec7-48d0-bc04-ce36133a72d6
+
+	column 'idInstrumentoOrigem.lookupId'
+		dataType: string
+		lineageTag: 3a8fbecd-45e1-4703-bea0-91a334b90f5b
+		summarizeBy: none
+		sourceColumn: idInstrumentoOrigem.lookupId
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'idInstrumentoOrigem.lookupValue'
+		dataType: string
+		lineageTag: da6e963a-e549-4f6a-b35d-9a633feeca7d
+		summarizeBy: none
+		sourceColumn: idInstrumentoOrigem.lookupValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'idInstrumentoDestino.lookupId'
+		dataType: string
+		lineageTag: 4897fd61-cac5-4cb0-838a-62c762458385
+		summarizeBy: none
+		sourceColumn: idInstrumentoDestino.lookupId
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'idInstrumentoDestino.lookupValue'
+		dataType: string
+		lineageTag: 9121f97d-e6c3-4dab-b890-a63375048066
+		summarizeBy: none
+		sourceColumn: idInstrumentoDestino.lookupValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column Título
+		dataType: string
+		lineageTag: b9f37ab6-691f-4a0b-b102-c027dcbb5efd
+		summarizeBy: none
+		sourceColumn: Título
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID
+		dataType: int64
+		formatString: 0
+		lineageTag: 0a293d90-2530-463d-9142-f39351826178
+		summarizeBy: count
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Modificado
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 7a416bba-9889-4c85-8071-f3eb5aaa4d81
+		summarizeBy: none
+		sourceColumn: Modificado
+
+		variation Variation
+			isDefault
+			relationship: dab0a68b-98d8-46c1-bb39-ec375bdd76f1
+			defaultHierarchy: LocalDateTable_3f0d56fe-b1c4-46ef-9512-4f8de189fe1b.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Criado
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 4edcafec-7738-4fa9-98da-2dc2e5ef89c4
+		summarizeBy: none
+		sourceColumn: Criado
+
+		variation Variation
+			isDefault
+			relationship: 3fa11210-6c27-4d5e-ae09-d4181ad3bbc3
+			defaultHierarchy: LocalDateTable_71856146-6476-4363-94cc-74e459036b39.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Criado por.title'
+		dataType: string
+		lineageTag: fb7cb2f6-0201-4f5c-ba95-4a833d266a94
+		summarizeBy: none
+		sourceColumn: Criado por.title
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Criado por.email'
+		dataType: string
+		lineageTag: e3980f1c-6bf3-4ac9-add9-91443b73ef68
+		summarizeBy: none
+		sourceColumn: Criado por.email
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Criado por.sip'
+		dataType: string
+		lineageTag: 7640112a-02b6-48da-8b32-b7845f3c1f96
+		summarizeBy: none
+		sourceColumn: Criado por.sip
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Modificado por.title'
+		dataType: string
+		lineageTag: 80ae7fc6-1fc2-477b-92ae-59a1d2df898c
+		summarizeBy: none
+		sourceColumn: Modificado por.title
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Modificado por.email'
+		dataType: string
+		lineageTag: cdc719a9-43d3-48bc-9a89-b1985a1cd8ed
+		summarizeBy: none
+		sourceColumn: Modificado por.email
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Modificado por.sip'
+		dataType: string
+		lineageTag: f3f72afc-7933-4354-a712-545db8145b69
+		summarizeBy: none
+		sourceColumn: Modificado por.sip
+
+		annotation SummarizationSetBy = Automatic
+
+	partition relacaoInstrumentos = m
+		mode: import
+		source =
+				let
+				    Fonte = SharePoint.Tables("https://tjbacotec.sharepoint.com/sites/NucleodeConveniosDev", [Implementation="2.0", ViewMode="All"]),
+				    #"2530c59c-2d2c-4b7a-8b6a-4a7d2473c601" = Fonte{[Id="2530c59c-2d2c-4b7a-8b6a-4a7d2473c601"]}[Items],
+				    #"idInstrumentoOrigem Expandido" = Table.ExpandListColumn(#"2530c59c-2d2c-4b7a-8b6a-4a7d2473c601", "idInstrumentoOrigem"),
+				    #"idInstrumentoOrigem Expandido1" = Table.ExpandRecordColumn(#"idInstrumentoOrigem Expandido", "idInstrumentoOrigem", {"lookupId", "lookupValue", "isSecretFieldValue"}, {"idInstrumentoOrigem.lookupId", "idInstrumentoOrigem.lookupValue", "idInstrumentoOrigem.isSecretFieldValue"}),
+				    #"idInstrumentoDestino Expandido" = Table.ExpandListColumn(#"idInstrumentoOrigem Expandido1", "idInstrumentoDestino"),
+				    #"idInstrumentoDestino Expandido1" = Table.ExpandRecordColumn(#"idInstrumentoDestino Expandido", "idInstrumentoDestino", {"lookupId", "lookupValue", "isSecretFieldValue"}, {"idInstrumentoDestino.lookupId", "idInstrumentoDestino.lookupValue", "idInstrumentoDestino.isSecretFieldValue"}),
+				    #"Colunas Removidas" = Table.RemoveColumns(#"idInstrumentoDestino Expandido1",{"Aplicativo Modificado por", "Aplicativo Criado por", "O item é um Registro", "Rótulo aplicado por", "Rótulo de retenção Aplicado", "Rótulo de retenção", "Configuração do rótulo", "Contagem de Elementos Filho da Pasta", "Contagem de Itens Filhos", "Tipo", "Editar", "Anexos", "Versão"}),
+				    #"Modificado por Expandido" = Table.ExpandListColumn(#"Colunas Removidas", "Modificado por"),
+				    #"Modificado por Expandido1" = Table.ExpandRecordColumn(#"Modificado por Expandido", "Modificado por", {"id", "title", "email", "sip", "picture", "jobTitle"}, {"Modificado por.id", "Modificado por.title", "Modificado por.email", "Modificado por.sip", "Modificado por.picture", "Modificado por.jobTitle"}),
+				    #"Criado por Expandido" = Table.ExpandListColumn(#"Modificado por Expandido1", "Criado por"),
+				    #"Colunas Removidas1" = Table.RemoveColumns(#"Criado por Expandido",{"idInstrumentoOrigem.isSecretFieldValue", "idInstrumentoDestino.isSecretFieldValue", "Pressione Delete para excluir o ícone.", "ID de Ativo de Conformidade", "Tipo de Conteúdo"}),
+				    #"Criado por Expandido1" = Table.ExpandRecordColumn(#"Colunas Removidas1", "Criado por", {"id", "title", "email", "sip", "picture", "jobTitle"}, {"Criado por.id", "Criado por.title", "Criado por.email", "Criado por.sip", "Criado por.picture", "Criado por.jobTitle"}),
+				    #"Colunas Removidas2" = Table.RemoveColumns(#"Criado por Expandido1",{"Criado por.id", "Criado por.picture", "Criado por.jobTitle", "Modificado por.id", "Modificado por.picture", "Modificado por.jobTitle"})
+				in
+				    #"Colunas Removidas2"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

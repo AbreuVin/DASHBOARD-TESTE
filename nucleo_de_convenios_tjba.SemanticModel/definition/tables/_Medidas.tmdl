@@ -1,0 +1,38 @@
+table _Medidas
+	lineageTag: d6b61d2a-2f73-4b5d-9a15-3bbf2d5e6f10
+
+	measure 'Total Instrumentos' = COUNTROWS('instrumentos')
+		formatString: #,##0
+		displayFolder: 01 KPIs
+		lineageTag: 1d4a8f26-1f63-4e2a-8f3f-5c17b6f2b001
+
+	measure 'Instrumentos Vigentes' = CALCULATE(
+		COUNTROWS('instrumentos'),
+		FILTER(
+			'instrumentos',
+			ISBLANK('instrumentos'[dataFimVigenciaEfetiva]) || 'instrumentos'[dataFimVigenciaEfetiva] >= TODAY()
+		)
+	)
+		formatString: #,##0
+		displayFolder: 01 KPIs
+		lineageTag: 1d4a8f26-1f63-4e2a-8f3f-5c17b6f2b002
+
+	measure 'Total Aditivos' = COUNTROWS('aditivos')
+		formatString: #,##0
+		displayFolder: 01 KPIs
+		lineageTag: 1d4a8f26-1f63-4e2a-8f3f-5c17b6f2b003
+
+	measure 'Partícipes Vinculados' = COUNTROWS('participesInstrumentos')
+		formatString: #,##0
+		displayFolder: 01 KPIs
+		lineageTag: 1d4a8f26-1f63-4e2a-8f3f-5c17b6f2b004
+
+	measure 'Alterações Registradas' = COUNTROWS('historicoAlteracoes')
+		formatString: #,##0
+		displayFolder: 01 KPIs
+		lineageTag: 1d4a8f26-1f63-4e2a-8f3f-5c17b6f2b005
+
+	measure 'Instrumentos por Data' = COUNTROWS('instrumentos')
+		formatString: #,##0
+		displayFolder: 03 Tendencias
+		lineageTag: 1d4a8f26-1f63-4e2a-8f3f-5c17b6f2b006

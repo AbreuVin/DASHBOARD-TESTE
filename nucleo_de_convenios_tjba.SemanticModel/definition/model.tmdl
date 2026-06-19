@@ -1,0 +1,72 @@
+model Model
+	culture: pt-BR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: pt-BR
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["_Medidas","aditivos","tematicasInstrumentos","tiposInstrumento","unidadesNegocio","tematicas","situacoesTermo","situacoesProcesso","relacaoInstrumentos","participesInstrumentos","participes","intervenientesInstrumentos","intervenientes","instrumentos","historicoAlteracoes","acessoTeste"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table aditivos
+ref table _Medidas
+ref table DateTableTemplate_3487a5e6-4ea0-4cb5-bf24-0908c44e2a55
+ref table LocalDateTable_126e5498-f052-43cf-87f1-92c5f9a791ca
+ref table LocalDateTable_a2b0d046-9596-4e14-b5a4-bffda2842d06
+ref table LocalDateTable_73939c50-065f-4a3d-895c-c547696b6c07
+ref table LocalDateTable_f318885e-6160-400c-b7e2-1ff13d05ffa7
+ref table LocalDateTable_343f977c-3c80-4238-8368-46123ea0c46a
+ref table tematicasInstrumentos
+ref table LocalDateTable_d4606553-8e56-4911-bec4-ad7b325938c9
+ref table LocalDateTable_77435c2d-93dc-4f51-8f1e-df8b0b231072
+ref table tiposInstrumento
+ref table LocalDateTable_dafa97ac-a1a9-402a-aa8f-ae273e2ab2ef
+ref table LocalDateTable_6e290e5a-9f41-4f19-9c1c-a14593f6c542
+ref table unidadesNegocio
+ref table LocalDateTable_a9cc8d3a-dacc-4f5e-ae58-64010f09c8ec
+ref table LocalDateTable_dc0c564a-9fc2-4b03-9e34-0c538f474ca4
+ref table tematicas
+ref table LocalDateTable_2bc67d64-6a6c-4ddd-a42b-c1f1cd026a0e
+ref table LocalDateTable_b6afce52-af62-4b48-8a3a-aeac1f3be239
+ref table situacoesTermo
+ref table LocalDateTable_a0c65434-9670-4476-8a9d-93dd720f3e52
+ref table LocalDateTable_7cf7037c-dbcd-4694-a720-8eac3e464ab3
+ref table situacoesProcesso
+ref table LocalDateTable_92c06db8-a256-4dc0-b452-c342614d0595
+ref table LocalDateTable_8e019368-0854-4bc0-bbf0-e2f175b36e88
+ref table relacaoInstrumentos
+ref table LocalDateTable_3f0d56fe-b1c4-46ef-9512-4f8de189fe1b
+ref table LocalDateTable_71856146-6476-4363-94cc-74e459036b39
+ref table participesInstrumentos
+ref table LocalDateTable_fb5a4e56-d837-4e34-b68a-6c1da816bf48
+ref table LocalDateTable_22828177-7619-48f0-82f3-6ed0ba4e96a3
+ref table participes
+ref table LocalDateTable_69848280-bd68-48d8-a510-95611c101265
+ref table LocalDateTable_137d0eda-2e51-444f-b4e2-5b149f4c6b8c
+ref table intervenientesInstrumentos
+ref table LocalDateTable_c4409233-78c1-4c76-8adf-459f0dc255f7
+ref table LocalDateTable_bf65359e-d528-40c2-987a-504b8c04948a
+ref table intervenientes
+ref table LocalDateTable_f0118c28-6be8-4158-9db6-ba1f6b9aa609
+ref table LocalDateTable_548c913f-022a-46a4-bd6d-f3b7197da8ae
+ref table instrumentos
+ref table LocalDateTable_200b009c-062f-478d-b0f5-d993e43edae3
+ref table LocalDateTable_22329f69-df4f-4673-957f-106529f782b6
+ref table LocalDateTable_28664c27-539b-40ff-a889-7f8c464f8de2
+ref table LocalDateTable_3b8595cb-e606-43e4-aad7-f7fd236879a2
+ref table LocalDateTable_10dd32a4-2b04-4e2b-9346-341849fba722
+ref table LocalDateTable_e99c5ea5-3cdd-4e5e-a993-a03cc21f2b5d
+ref table LocalDateTable_a4b0c9a1-edbb-43c3-92f4-e79c314529ac
+ref table LocalDateTable_722c0720-340d-4f12-9a1e-f24d46c9940c
+ref table historicoAlteracoes
+ref table LocalDateTable_021d75fd-2189-43c1-b70e-cf4cbc6451b5
+ref table LocalDateTable_a74082fb-52e5-4748-8bd1-5668dbf4b248
+ref table LocalDateTable_a3018f1e-1de5-4d42-9963-f77c91690a05
+ref table acessoTeste
+
+ref cultureInfo pt-BR
+

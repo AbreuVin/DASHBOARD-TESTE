@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "nucleo_de_convenios_tjba"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "c1f629fd-4109-4447-9af9-cc6ef6238c97"
+  }
+}

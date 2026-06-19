@@ -1,0 +1,116 @@
+table unidadesNegocio
+	lineageTag: 4b96b3b5-5037-41e3-950e-a69acff213f8
+
+	column nomeUnidade
+		dataType: string
+		lineageTag: d17570e3-f17e-46dd-baaa-af8dbd260f26
+		summarizeBy: none
+		sourceColumn: nomeUnidade
+
+		annotation SummarizationSetBy = Automatic
+
+	column ativo
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 8124a37c-8d93-450e-85a5-484b8c54af14
+		summarizeBy: none
+		sourceColumn: ativo
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID
+		dataType: int64
+		formatString: 0
+		lineageTag: b65f1239-ddca-45c4-ab63-a12ebe38ef9c
+		summarizeBy: count
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Modificado
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 3b3c9466-7f7d-4ef4-89e4-3cff6fd07dd7
+		summarizeBy: none
+		sourceColumn: Modificado
+
+		variation Variation
+			isDefault
+			relationship: c49a543b-7e82-49ba-910a-c513a158c534
+			defaultHierarchy: LocalDateTable_a9cc8d3a-dacc-4f5e-ae58-64010f09c8ec.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Criado
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: ec349398-6c77-4377-9302-d60d4f6ecaf1
+		summarizeBy: none
+		sourceColumn: Criado
+
+		variation Variation
+			isDefault
+			relationship: 2b49e93e-f368-4273-853f-b7482cb1cbd8
+			defaultHierarchy: LocalDateTable_dc0c564a-9fc2-4b03-9e34-0c538f474ca4.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Criado por.title'
+		dataType: string
+		lineageTag: 1c290025-32b0-4126-b1ca-62b49a7fbbcd
+		summarizeBy: none
+		sourceColumn: Criado por.title
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Criado por.email'
+		dataType: string
+		lineageTag: 92f5299e-9fe9-4480-b8d7-0294341fa4c3
+		summarizeBy: none
+		sourceColumn: Criado por.email
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Modificado por.title'
+		dataType: string
+		lineageTag: 2b52bd00-5fb7-4d4a-9db1-46aaa8210616
+		summarizeBy: none
+		sourceColumn: Modificado por.title
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Modificado por.email'
+		dataType: string
+		lineageTag: f28280d1-99f0-413c-a0eb-e09421659680
+		summarizeBy: none
+		sourceColumn: Modificado por.email
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Modificado por.sip'
+		dataType: string
+		lineageTag: c152f177-8000-4454-aae8-a2334bbf571b
+		summarizeBy: none
+		sourceColumn: Modificado por.sip
+
+		annotation SummarizationSetBy = Automatic
+
+	partition unidadesNegocio = m
+		mode: import
+		source =
+				let
+				    Fonte = SharePoint.Tables("https://tjbacotec.sharepoint.com/sites/NucleodeConveniosDev", [Implementation="2.0", ViewMode="All"]),
+				    #"d5ab72ff-c9df-4397-aea4-2f1e344e3674" = Fonte{[Id="d5ab72ff-c9df-4397-aea4-2f1e344e3674"]}[Items],
+				    #"Colunas Removidas" = Table.RemoveColumns(#"d5ab72ff-c9df-4397-aea4-2f1e344e3674",{"Aplicativo Modificado por", "Aplicativo Criado por", "O item é um Registro", "Rótulo aplicado por", "Rótulo de retenção Aplicado", "Rótulo de retenção", "Configuração do rótulo", "Contagem de Elementos Filho da Pasta", "Contagem de Itens Filhos", "Tipo", "Editar", "Anexos", "Versão"}),
+				    #"Modificado por Expandido" = Table.ExpandListColumn(#"Colunas Removidas", "Modificado por"),
+				    #"Modificado por Expandido1" = Table.ExpandRecordColumn(#"Modificado por Expandido", "Modificado por", {"id", "title", "email", "sip", "picture", "jobTitle"}, {"Modificado por.id", "Modificado por.title", "Modificado por.email", "Modificado por.sip", "Modificado por.picture", "Modificado por.jobTitle"}),
+				    #"Criado por Expandido" = Table.ExpandListColumn(#"Modificado por Expandido1", "Criado por"),
+				    #"Criado por Expandido1" = Table.ExpandRecordColumn(#"Criado por Expandido", "Criado por", {"id", "title", "email", "sip", "picture", "jobTitle"}, {"Criado por.id", "Criado por.title", "Criado por.email", "Criado por.sip", "Criado por.picture", "Criado por.jobTitle"}),
+				    #"Colunas Removidas1" = Table.RemoveColumns(#"Criado por Expandido1",{"Modificado por.picture", "Modificado por.jobTitle", "Modificado por.id", "Criado por.jobTitle", "Criado por.picture", "Criado por.sip", "Criado por.id", "Tipo de Conteúdo", "ID de Ativo de Conformidade", "Pressione Delete para excluir o ícone.", "Título"})
+				in
+				    #"Colunas Removidas1"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
