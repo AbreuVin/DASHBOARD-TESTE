@@ -3,7 +3,7 @@
   "name": "txt_subtitle",
   "position": {
     "x": 20,
-    "y": 46,
+    "y": 42,
     "z": 1000,
     "height": 22,
     "width": 920,
@@ -19,11 +19,11 @@
               {
                 "textRuns": [
                   {
-                    "value": "Painel operacional com estética clean, cartões suaves e foco nos principais indicadores.",
+                    "value": "Painel operacional · Instrumentos, vigências, aditivos e partícipes",
                     "textStyle": {
                       "fontSize": "10pt",
                       "fontFamily": "Segoe UI",
-                      "color": "#64748B"
+                      "color": "#94A3B8"
                     }
                   }
                 ],

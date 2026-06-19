@@ -3,9 +3,9 @@
   "name": "txt_title",
   "position": {
     "x": 20,
-    "y": 14,
+    "y": 10,
     "z": 1000,
-    "height": 34,
+    "height": 30,
     "width": 760,
     "tabOrder": 1
   },
@@ -19,11 +19,11 @@
               {
                 "textRuns": [
                   {
-                    "value": "Núcleo de Convênios",
+                    "value": "Núcleo de Convênios · TJBA",
                     "textStyle": {
-                      "fontSize": "24pt",
+                      "fontSize": "18pt",
                       "fontFamily": "Segoe UI Semibold",
-                      "color": "#0F172A"
+                      "color": "#FFFFFF"
                     }
                   }
                 ],
