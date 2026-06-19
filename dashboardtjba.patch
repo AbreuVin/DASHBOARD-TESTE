@@ -1,0 +1,1883 @@
+From aba0fddead1c0444ab6d70876e87be23cb70f207 Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Fri, 19 Jun 2026 19:23:20 +0000
+Subject: [PATCH] =?UTF-8?q?feat:=20redesign=20dashboard=20N=C3=BAcleo=20de?=
+ =?UTF-8?q?=20Conv=C3=AAnios=20com=20identidade=20visual=20TJBA?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+- Adiciona fundo cinza claro (#F1F5F9) na página e área externa
+- Cria shape_header: faixa navy (#0F2D5E) no topo (header institucional)
+- Atualiza título para texto branco 18pt dentro do header
+- Atualiza subtítulo para texto slate-300 dentro do header
+- Cards KPI: adiciona objects com cor de acento distinta por indicador
+  (azul, verde, âmbar, roxo, vermelho) e sombra drop-shadow
+- Gráficos de barras: adiciona dataPoint fill, categoryAxis, valueAxis,
+  data labels OutsideEnd e drop-shadow; ajusta tamanho para h:118
+- Gráfico de linhas: adiciona lineStyles (stroke 2px), eixos formatados,
+  gridlines, sombra e redimensiona para h:248
+- Tabela: adiciona columnHeaders, values e grid objects; reposiciona para y:444
+
+Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_015zoRWsiYvkcGZ4HtWL9MuZ
+---
+ .../pages/660b216e0bc390ac0036/page.json      |  45 ++++-
+ .../visuals/bar_situacoes/visual.json         | 155 +++++++++++++++-
+ .../visuals/bar_tipos/visual.json             | 153 +++++++++++++++-
+ .../visuals/card_aditivos/visual.json         | 108 ++++++++++-
+ .../visuals/card_alteracoes/visual.json       | 108 ++++++++++-
+ .../visuals/card_participes/visual.json       | 108 ++++++++++-
+ .../card_total_instrumentos/visual.json       | 108 ++++++++++-
+ .../visuals/card_vigentes/visual.json         | 108 ++++++++++-
+ .../line_instrumentos_por_data/visual.json    | 169 +++++++++++++++++-
+ .../visuals/shape_header/visual.json          |  71 ++++++++
+ .../visuals/table_recentes/visual.json        | 163 ++++++++++++++++-
+ .../visuals/txt_subtitle/visual.json          |   6 +-
+ .../visuals/txt_title/visual.json             |  10 +-
+ 13 files changed, 1246 insertions(+), 66 deletions(-)
+ create mode 100644 nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/shape_header/visual.json
+
+diff --git a/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/page.json b/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/page.json
+index 5bc5f9e..0ef3f84 100644
+--- a/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/page.json
++++ b/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/page.json
+@@ -4,5 +4,48 @@
+   "displayName": "Visão Geral",
+   "displayOption": "FitToPage",
+   "height": 720,
+-  "width": 1280
++  "width": 1280,
++  "objects": {
++    "background": [
++      {
++        "properties": {
++          "color": {
++            "solid": {
++              "color": {
++                "expr": {
++                  "Literal": {
++                    "Value": "'#F1F5F9'"
++                  }
++                }
++              }
++            }
++          },
++          "transparency": {
++            "expr": {
++              "Literal": {
++                "Value": "0D"
++              }
++            }
++          }
++        }
++      }
++    ],
++    "outspace": [
++      {
++        "properties": {
++          "color": {
++            "solid": {
++              "color": {
++                "expr": {
++                  "Literal": {
++                    "Value": "'#F1F5F9'"
++                  }
++                }
++              }
++            }
++          }
++        }
++      }
++    ]
++  }
+ }
+diff --git a/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/bar_situacoes/visual.json b/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/bar_situacoes/visual.json
+index 7e97cdc..1f7bbd0 100644
+--- a/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/bar_situacoes/visual.json
++++ b/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/bar_situacoes/visual.json
+@@ -2,11 +2,11 @@
+   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+   "name": "bar_situacoes",
+   "position": {
+-    "x": 812,
+-    "y": 300,
++    "x": 808,
++    "y": 314,
+     "z": 1200,
+-    "height": 104,
+-    "width": 448,
++    "height": 118,
++    "width": 452,
+     "tabOrder": 10
+   },
+   "visual": {
+@@ -70,6 +70,134 @@
+         "isDefaultSort": true
+       }
+     },
++    "objects": {
++      "dataPoint": [
++        {
++          "properties": {
++            "fill": {
++              "solid": {
++                "color": {
++                  "expr": {
++                    "Literal": {
++                      "Value": "'#0EA5E9'"
++                    }
++                  }
++                }
++              }
++            }
++          }
++        }
++      ],
++      "categoryAxis": [
++        {
++          "properties": {
++            "fontSize": {
++              "expr": {
++                "Literal": {
++                  "Value": "9D"
++                }
++              }
++            },
++            "fontFamily": {
++              "expr": {
++                "Literal": {
++                  "Value": "'Segoe UI'"
++                }
++              }
++            },
++            "labelColor": {
++              "solid": {
++                "color": {
++                  "expr": {
++                    "Literal": {
++                      "Value": "'#475569'"
++                    }
++                  }
++                }
++              }
++            },
++            "showAxisTitle": {
++              "expr": {
++                "Literal": {
++                  "Value": "false"
++                }
++              }
++            }
++          }
++        }
++      ],
++      "valueAxis": [
++        {
++          "properties": {
++            "show": {
++              "expr": {
++                "Literal": {
++                  "Value": "false"
++                }
++              }
++            },
++            "showAxisTitle": {
++              "expr": {
++                "Literal": {
++                  "Value": "false"
++                }
++              }
++            }
++          }
++        }
++      ],
++      "labels": [
++        {
++          "properties": {
++            "show": {
++              "expr": {
++                "Literal": {
++                  "Value": "true"
++                }
++              }
++            },
++            "fontSize": {
++              "expr": {
++                "Literal": {
++                  "Value": "9D"
++                }
++              }
++            },
++            "color": {
++              "solid": {
++                "color": {
++                  "expr": {
++                    "Literal": {
++                      "Value": "'#1E293B'"
++                    }
++                  }
++                }
++              }
++            },
++            "labelPosition": {
++              "expr": {
++                "Literal": {
++                  "Value": "'OutsideEnd'"
++                }
++              }
++            }
++          }
++        }
++      ],
++      "legend": [
++        {
++          "properties": {
++            "show": {
++              "expr": {
++                "Literal": {
++                  "Value": "false"
++                }
++              }
++            }
++          }
++        }
++      ]
++    },
+     "visualContainerObjects": {
+       "background": [
+         {
+@@ -126,7 +254,7 @@
+             "radius": {
+               "expr": {
+                 "Literal": {
+-                  "Value": "16D"
++                  "Value": "12D"
+                 }
+               }
+             }
+@@ -164,7 +292,7 @@
+             "fontSize": {
+               "expr": {
+                 "Literal": {
+-                  "Value": "12D"
++                  "Value": "11D"
+                 }
+               }
+             },
+@@ -212,7 +340,7 @@
+             "bottom": {
+               "expr": {
+                 "Literal": {
+-                  "Value": "10D"
++                  "Value": "8D"
+                 }
+               }
+             }
+@@ -231,6 +359,19 @@
+             }
+           }
+         }
++      ],
++      "dropShadow": [
++        {
++          "properties": {
++            "show": {
++              "expr": {
++                "Literal": {
++                  "Value": "true"
++                }
++              }
++            }
++          }
++        }
+       ]
+     },
+     "drillFilterOtherVisuals": true
+diff --git a/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/bar_tipos/visual.json b/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/bar_tipos/visual.json
+index 8b440d3..f24cee4 100644
+--- a/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/bar_tipos/visual.json
++++ b/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/bar_tipos/visual.json
+@@ -2,11 +2,11 @@
+   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+   "name": "bar_tipos",
+   "position": {
+-    "x": 812,
++    "x": 808,
+     "y": 184,
+     "z": 1200,
+-    "height": 104,
+-    "width": 448,
++    "height": 118,
++    "width": 452,
+     "tabOrder": 9
+   },
+   "visual": {
+@@ -70,6 +70,134 @@
+         "isDefaultSort": true
+       }
+     },
++    "objects": {
++      "dataPoint": [
++        {
++          "properties": {
++            "fill": {
++              "solid": {
++                "color": {
++                  "expr": {
++                    "Literal": {
++                      "Value": "'#3B82F6'"
++                    }
++                  }
++                }
++              }
++            }
++          }
++        }
++      ],
++      "categoryAxis": [
++        {
++          "properties": {
++            "fontSize": {
++              "expr": {
++                "Literal": {
++                  "Value": "9D"
++                }
++              }
++            },
++            "fontFamily": {
++              "expr": {
++                "Literal": {
++                  "Value": "'Segoe UI'"
++                }
++              }
++            },
++            "labelColor": {
++              "solid": {
++                "color": {
++                  "expr": {
++                    "Literal": {
++                      "Value": "'#475569'"
++                    }
++                  }
++                }
++              }
++            },
++            "showAxisTitle": {
++              "expr": {
++                "Literal": {
++                  "Value": "false"
++                }
++              }
++            }
++          }
++        }
++      ],
++      "valueAxis": [
++        {
++          "properties": {
++            "show": {
++              "expr": {
++                "Literal": {
++                  "Value": "false"
++                }
++              }
++            },
++            "showAxisTitle": {
++              "expr": {
++                "Literal": {
++                  "Value": "false"
++                }
++              }
++            }
++          }
++        }
++      ],
++      "labels": [
++        {
++          "properties": {
++            "show": {
++              "expr": {
++                "Literal": {
++                  "Value": "true"
++                }
++              }
++            },
++            "fontSize": {
++              "expr": {
++                "Literal": {
++                  "Value": "9D"
++                }
++              }
++            },
++            "color": {
++              "solid": {
++                "color": {
++                  "expr": {
++                    "Literal": {
++                      "Value": "'#1E293B'"
++                    }
++                  }
++                }
++              }
++            },
++            "labelPosition": {
++              "expr": {
++                "Literal": {
++                  "Value": "'OutsideEnd'"
++                }
++              }
++            }
++          }
++        }
++      ],
++      "legend": [
++        {
++          "properties": {
++            "show": {
++              "expr": {
++                "Literal": {
++                  "Value": "false"
++                }
++              }
++            }
++          }
++        }
++      ]
++    },
+     "visualContainerObjects": {
+       "background": [
+         {
+@@ -126,7 +254,7 @@
+             "radius": {
+               "expr": {
+                 "Literal": {
+-                  "Value": "16D"
++                  "Value": "12D"
+                 }
+               }
+             }
+@@ -164,7 +292,7 @@
+             "fontSize": {
+               "expr": {
+                 "Literal": {
+-                  "Value": "12D"
++                  "Value": "11D"
+                 }
+               }
+             },
+@@ -212,7 +340,7 @@
+             "bottom": {
+               "expr": {
+                 "Literal": {
+-                  "Value": "10D"
++                  "Value": "8D"
+                 }
+               }
+             }
+@@ -231,6 +359,19 @@
+             }
+           }
+         }
++      ],
++      "dropShadow": [
++        {
++          "properties": {
++            "show": {
++              "expr": {
++                "Literal": {
++                  "Value": "true"
++                }
++              }
++            }
++          }
++        }
+       ]
+     },
+     "drillFilterOtherVisuals": true
+diff --git a/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/card_aditivos/visual.json b/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/card_aditivos/visual.json
+index c0da2ef..4a8a6a5 100644
+--- a/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/card_aditivos/visual.json
++++ b/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/card_aditivos/visual.json
+@@ -3,9 +3,9 @@
+   "name": "card_aditivos",
+   "position": {
+     "x": 520,
+-    "y": 84,
++    "y": 80,
+     "z": 1100,
+-    "height": 88,
++    "height": 92,
+     "width": 238,
+     "tabOrder": 5
+   },
+@@ -34,6 +34,87 @@
+         }
+       }
+     },
++    "objects": {
++      "calloutValue": [
++        {
++          "properties": {
++            "fontColor": {
++              "solid": {
++                "color": {
++                  "expr": {
++                    "Literal": {
++                      "Value": "'#D97706'"
++                    }
++                  }
++                }
++              }
++            },
++            "fontSize": {
++              "expr": {
++                "Literal": {
++                  "Value": "28D"
++                }
++              }
++            },
++            "bold": {
++              "expr": {
++                "Literal": {
++                  "Value": "true"
++                }
++              }
++            }
++          }
++        }
++      ],
++      "label": [
++        {
++          "properties": {
++            "fontColor": {
++              "solid": {
++                "color": {
++                  "expr": {
++                    "Literal": {
++                      "Value": "'#64748B'"
++                    }
++                  }
++                }
++              }
++            },
++            "fontSize": {
++              "expr": {
++                "Literal": {
++                  "Value": "11D"
++                }
++              }
++            }
++          }
++        }
++      ],
++      "accent": [
++        {
++          "properties": {
++            "show": {
++              "expr": {
++                "Literal": {
++                  "Value": "true"
++                }
++              }
++            },
++            "color": {
++              "solid": {
++                "color": {
++                  "expr": {
++                    "Literal": {
++                      "Value": "'#D97706'"
++                    }
++                  }
++                }
++              }
++            }
++          }
++        }
++      ]
++    },
+     "visualContainerObjects": {
+       "background": [
+         {
+@@ -90,7 +171,7 @@
+             "radius": {
+               "expr": {
+                 "Literal": {
+-                  "Value": "16D"
++                  "Value": "12D"
+                 }
+               }
+             }
+@@ -116,28 +197,28 @@
+             "left": {
+               "expr": {
+                 "Literal": {
+-                  "Value": "12D"
++                  "Value": "14D"
+                 }
+               }
+             },
+             "top": {
+               "expr": {
+                 "Literal": {
+-                  "Value": "10D"
++                  "Value": "12D"
+                 }
+               }
+             },
+             "right": {
+               "expr": {
+                 "Literal": {
+-                  "Value": "12D"
++                  "Value": "14D"
+                 }
+               }
+             },
+             "bottom": {
+               "expr": {
+                 "Literal": {
+-                  "Value": "10D"
++                  "Value": "12D"
+                 }
+               }
+             }
+@@ -156,6 +237,19 @@
+             }
+           }
+         }
++      ],
++      "dropShadow": [
++        {
++          "properties": {
++            "show": {
++              "expr": {
++                "Literal": {
++                  "Value": "true"
++                }
++              }
++            }
++          }
++        }
+       ]
+     },
+     "drillFilterOtherVisuals": true
+diff --git a/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/card_alteracoes/visual.json b/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/card_alteracoes/visual.json
+index dd3b9ae..33f2eee 100644
+--- a/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/card_alteracoes/visual.json
++++ b/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/card_alteracoes/visual.json
+@@ -3,9 +3,9 @@
+   "name": "card_alteracoes",
+   "position": {
+     "x": 1020,
+-    "y": 84,
++    "y": 80,
+     "z": 1100,
+-    "height": 88,
++    "height": 92,
+     "width": 238,
+     "tabOrder": 7
+   },
+@@ -34,6 +34,87 @@
+         }
+       }
+     },
++    "objects": {
++      "calloutValue": [
++        {
++          "properties": {
++            "fontColor": {
++              "solid": {
++                "color": {
++                  "expr": {
++                    "Literal": {
++                      "Value": "'#DC2626'"
++                    }
++                  }
++                }
++              }
++            },
++            "fontSize": {
++              "expr": {
++                "Literal": {
++                  "Value": "28D"
++                }
++              }
++            },
++            "bold": {
++              "expr": {
++                "Literal": {
++                  "Value": "true"
++                }
++              }
++            }
++          }
++        }
++      ],
++      "label": [
++        {
++          "properties": {
++            "fontColor": {
++              "solid": {
++                "color": {
++                  "expr": {
++                    "Literal": {
++                      "Value": "'#64748B'"
++                    }
++                  }
++                }
++              }
++            },
++            "fontSize": {
++              "expr": {
++                "Literal": {
++                  "Value": "11D"
++                }
++              }
++            }
++          }
++        }
++      ],
++      "accent": [
++        {
++          "properties": {
++            "show": {
++              "expr": {
++                "Literal": {
++                  "Value": "true"
++                }
++              }
++            },
++            "color": {
++              "solid": {
++                "color": {
++                  "expr": {
++                    "Literal": {
++                      "Value": "'#DC2626'"
++                    }
++                  }
++                }
++              }
++            }
++          }
++        }
++      ]
++    },
+     "visualContainerObjects": {
+       "background": [
+         {
+@@ -90,7 +171,7 @@
+             "radius": {
+               "expr": {
+                 "Literal": {
+-                  "Value": "16D"
++                  "Value": "12D"
+                 }
+               }
+             }
+@@ -116,28 +197,28 @@
+             "left": {
+               "expr": {
+                 "Literal": {
+-                  "Value": "12D"
++                  "Value": "14D"
+                 }
+               }
+             },
+             "top": {
+               "expr": {
+                 "Literal": {
+-                  "Value": "10D"
++                  "Value": "12D"
+                 }
+               }
+             },
+             "right": {
+               "expr": {
+                 "Literal": {
+-                  "Value": "12D"
++                  "Value": "14D"
+                 }
+               }
+             },
+             "bottom": {
+               "expr": {
+                 "Literal": {
+-                  "Value": "10D"
++                  "Value": "12D"
+                 }
+               }
+             }
+@@ -156,6 +237,19 @@
+             }
+           }
+         }
++      ],
++      "dropShadow": [
++        {
++          "properties": {
++            "show": {
++              "expr": {
++                "Literal": {
++                  "Value": "true"
++                }
++              }
++            }
++          }
++        }
+       ]
+     },
+     "drillFilterOtherVisuals": true
+diff --git a/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/card_participes/visual.json b/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/card_participes/visual.json
+index 1f02b14..04f10e9 100644
+--- a/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/card_participes/visual.json
++++ b/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/card_participes/visual.json
+@@ -3,9 +3,9 @@
+   "name": "card_participes",
+   "position": {
+     "x": 770,
+-    "y": 84,
++    "y": 80,
+     "z": 1100,
+-    "height": 88,
++    "height": 92,
+     "width": 238,
+     "tabOrder": 6
+   },
+@@ -34,6 +34,87 @@
+         }
+       }
+     },
++    "objects": {
++      "calloutValue": [
++        {
++          "properties": {
++            "fontColor": {
++              "solid": {
++                "color": {
++                  "expr": {
++                    "Literal": {
++                      "Value": "'#7C3AED'"
++                    }
++                  }
++                }
++              }
++            },
++            "fontSize": {
++              "expr": {
++                "Literal": {
++                  "Value": "28D"
++                }
++              }
++            },
++            "bold": {
++              "expr": {
++                "Literal": {
++                  "Value": "true"
++                }
++              }
++            }
++          }
++        }
++      ],
++      "label": [
++        {
++          "properties": {
++            "fontColor": {
++              "solid": {
++                "color": {
++                  "expr": {
++                    "Literal": {
++                      "Value": "'#64748B'"
++                    }
++                  }
++                }
++              }
++            },
++            "fontSize": {
++              "expr": {
++                "Literal": {
++                  "Value": "11D"
++                }
++              }
++            }
++          }
++        }
++      ],
++      "accent": [
++        {
++          "properties": {
++            "show": {
++              "expr": {
++                "Literal": {
++                  "Value": "true"
++                }
++              }
++            },
++            "color": {
++              "solid": {
++                "color": {
++                  "expr": {
++                    "Literal": {
++                      "Value": "'#7C3AED'"
++                    }
++                  }
++                }
++              }
++            }
++          }
++        }
++      ]
++    },
+     "visualContainerObjects": {
+       "background": [
+         {
+@@ -90,7 +171,7 @@
+             "radius": {
+               "expr": {
+                 "Literal": {
+-                  "Value": "16D"
++                  "Value": "12D"
+                 }
+               }
+             }
+@@ -116,28 +197,28 @@
+             "left": {
+               "expr": {
+                 "Literal": {
+-                  "Value": "12D"
++                  "Value": "14D"
+                 }
+               }
+             },
+             "top": {
+               "expr": {
+                 "Literal": {
+-                  "Value": "10D"
++                  "Value": "12D"
+                 }
+               }
+             },
+             "right": {
+               "expr": {
+                 "Literal": {
+-                  "Value": "12D"
++                  "Value": "14D"
+                 }
+               }
+             },
+             "bottom": {
+               "expr": {
+                 "Literal": {
+-                  "Value": "10D"
++                  "Value": "12D"
+                 }
+               }
+             }
+@@ -156,6 +237,19 @@
+             }
+           }
+         }
++      ],
++      "dropShadow": [
++        {
++          "properties": {
++            "show": {
++              "expr": {
++                "Literal": {
++                  "Value": "true"
++                }
++              }
++            }
++          }
++        }
+       ]
+     },
+     "drillFilterOtherVisuals": true
+diff --git a/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/card_total_instrumentos/visual.json b/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/card_total_instrumentos/visual.json
+index 6b457e9..2464ce4 100644
+--- a/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/card_total_instrumentos/visual.json
++++ b/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/card_total_instrumentos/visual.json
+@@ -3,9 +3,9 @@
+   "name": "card_total_instrumentos",
+   "position": {
+     "x": 20,
+-    "y": 84,
++    "y": 80,
+     "z": 1100,
+-    "height": 88,
++    "height": 92,
+     "width": 238,
+     "tabOrder": 3
+   },
+@@ -34,6 +34,87 @@
+         }
+       }
+     },
++    "objects": {
++      "calloutValue": [
++        {
++          "properties": {
++            "fontColor": {
++              "solid": {
++                "color": {
++                  "expr": {
++                    "Literal": {
++                      "Value": "'#1E40AF'"
++                    }
++                  }
++                }
++              }
++            },
++            "fontSize": {
++              "expr": {
++                "Literal": {
++                  "Value": "28D"
++                }
++              }
++            },
++            "bold": {
++              "expr": {
++                "Literal": {
++                  "Value": "true"
++                }
++              }
++            }
++          }
++        }
++      ],
++      "label": [
++        {
++          "properties": {
++            "fontColor": {
++              "solid": {
++                "color": {
++                  "expr": {
++                    "Literal": {
++                      "Value": "'#64748B'"
++                    }
++                  }
++                }
++              }
++            },
++            "fontSize": {
++              "expr": {
++                "Literal": {
++                  "Value": "11D"
++                }
++              }
++            }
++          }
++        }
++      ],
++      "accent": [
++        {
++          "properties": {
++            "show": {
++              "expr": {
++                "Literal": {
++                  "Value": "true"
++                }
++              }
++            },
++            "color": {
++              "solid": {
++                "color": {
++                  "expr": {
++                    "Literal": {
++                      "Value": "'#1E40AF'"
++                    }
++                  }
++                }
++              }
++            }
++          }
++        }
++      ]
++    },
+     "visualContainerObjects": {
+       "background": [
+         {
+@@ -90,7 +171,7 @@
+             "radius": {
+               "expr": {
+                 "Literal": {
+-                  "Value": "16D"
++                  "Value": "12D"
+                 }
+               }
+             }
+@@ -116,28 +197,28 @@
+             "left": {
+               "expr": {
+                 "Literal": {
+-                  "Value": "12D"
++                  "Value": "14D"
+                 }
+               }
+             },
+             "top": {
+               "expr": {
+                 "Literal": {
+-                  "Value": "10D"
++                  "Value": "12D"
+                 }
+               }
+             },
+             "right": {
+               "expr": {
+                 "Literal": {
+-                  "Value": "12D"
++                  "Value": "14D"
+                 }
+               }
+             },
+             "bottom": {
+               "expr": {
+                 "Literal": {
+-                  "Value": "10D"
++                  "Value": "12D"
+                 }
+               }
+             }
+@@ -156,6 +237,19 @@
+             }
+           }
+         }
++      ],
++      "dropShadow": [
++        {
++          "properties": {
++            "show": {
++              "expr": {
++                "Literal": {
++                  "Value": "true"
++                }
++              }
++            }
++          }
++        }
+       ]
+     },
+     "drillFilterOtherVisuals": true
+diff --git a/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/card_vigentes/visual.json b/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/card_vigentes/visual.json
+index b25f0ce..0ac5084 100644
+--- a/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/card_vigentes/visual.json
++++ b/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/card_vigentes/visual.json
+@@ -3,9 +3,9 @@
+   "name": "card_vigentes",
+   "position": {
+     "x": 270,
+-    "y": 84,
++    "y": 80,
+     "z": 1100,
+-    "height": 88,
++    "height": 92,
+     "width": 238,
+     "tabOrder": 4
+   },
+@@ -34,6 +34,87 @@
+         }
+       }
+     },
++    "objects": {
++      "calloutValue": [
++        {
++          "properties": {
++            "fontColor": {
++              "solid": {
++                "color": {
++                  "expr": {
++                    "Literal": {
++                      "Value": "'#059669'"
++                    }
++                  }
++                }
++              }
++            },
++            "fontSize": {
++              "expr": {
++                "Literal": {
++                  "Value": "28D"
++                }
++              }
++            },
++            "bold": {
++              "expr": {
++                "Literal": {
++                  "Value": "true"
++                }
++              }
++            }
++          }
++        }
++      ],
++      "label": [
++        {
++          "properties": {
++            "fontColor": {
++              "solid": {
++                "color": {
++                  "expr": {
++                    "Literal": {
++                      "Value": "'#64748B'"
++                    }
++                  }
++                }
++              }
++            },
++            "fontSize": {
++              "expr": {
++                "Literal": {
++                  "Value": "11D"
++                }
++              }
++            }
++          }
++        }
++      ],
++      "accent": [
++        {
++          "properties": {
++            "show": {
++              "expr": {
++                "Literal": {
++                  "Value": "true"
++                }
++              }
++            },
++            "color": {
++              "solid": {
++                "color": {
++                  "expr": {
++                    "Literal": {
++                      "Value": "'#059669'"
++                    }
++                  }
++                }
++              }
++            }
++          }
++        }
++      ]
++    },
+     "visualContainerObjects": {
+       "background": [
+         {
+@@ -90,7 +171,7 @@
+             "radius": {
+               "expr": {
+                 "Literal": {
+-                  "Value": "16D"
++                  "Value": "12D"
+                 }
+               }
+             }
+@@ -116,28 +197,28 @@
+             "left": {
+               "expr": {
+                 "Literal": {
+-                  "Value": "12D"
++                  "Value": "14D"
+                 }
+               }
+             },
+             "top": {
+               "expr": {
+                 "Literal": {
+-                  "Value": "10D"
++                  "Value": "12D"
+                 }
+               }
+             },
+             "right": {
+               "expr": {
+                 "Literal": {
+-                  "Value": "12D"
++                  "Value": "14D"
+                 }
+               }
+             },
+             "bottom": {
+               "expr": {
+                 "Literal": {
+-                  "Value": "10D"
++                  "Value": "12D"
+                 }
+               }
+             }
+@@ -156,6 +237,19 @@
+             }
+           }
+         }
++      ],
++      "dropShadow": [
++        {
++          "properties": {
++            "show": {
++              "expr": {
++                "Literal": {
++                  "Value": "true"
++                }
++              }
++            }
++          }
++        }
+       ]
+     },
+     "drillFilterOtherVisuals": true
+diff --git a/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/line_instrumentos_por_data/visual.json b/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/line_instrumentos_por_data/visual.json
+index 29b2b73..b25123a 100644
+--- a/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/line_instrumentos_por_data/visual.json
++++ b/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/line_instrumentos_por_data/visual.json
+@@ -5,8 +5,8 @@
+     "x": 20,
+     "y": 184,
+     "z": 1200,
+-    "height": 220,
+-    "width": 772,
++    "height": 248,
++    "width": 776,
+     "tabOrder": 8
+   },
+   "visual": {
+@@ -70,6 +70,152 @@
+         "isDefaultSort": true
+       }
+     },
++    "objects": {
++      "dataPoint": [
++        {
++          "properties": {
++            "fill": {
++              "solid": {
++                "color": {
++                  "expr": {
++                    "Literal": {
++                      "Value": "'#3B82F6'"
++                    }
++                  }
++                }
++              }
++            }
++          }
++        }
++      ],
++      "lineStyles": [
++        {
++          "properties": {
++            "strokeWidth": {
++              "expr": {
++                "Literal": {
++                  "Value": "2D"
++                }
++              }
++            },
++            "lineChartType": {
++              "expr": {
++                "Literal": {
++                  "Value": "'linear'"
++                }
++              }
++            }
++          }
++        }
++      ],
++      "categoryAxis": [
++        {
++          "properties": {
++            "fontSize": {
++              "expr": {
++                "Literal": {
++                  "Value": "9D"
++                }
++              }
++            },
++            "fontFamily": {
++              "expr": {
++                "Literal": {
++                  "Value": "'Segoe UI'"
++                }
++              }
++            },
++            "labelColor": {
++              "solid": {
++                "color": {
++                  "expr": {
++                    "Literal": {
++                      "Value": "'#475569'"
++                    }
++                  }
++                }
++              }
++            },
++            "showAxisTitle": {
++              "expr": {
++                "Literal": {
++                  "Value": "false"
++                }
++              }
++            }
++          }
++        }
++      ],
++      "valueAxis": [
++        {
++          "properties": {
++            "fontSize": {
++              "expr": {
++                "Literal": {
++                  "Value": "9D"
++                }
++              }
++            },
++            "fontFamily": {
++              "expr": {
++                "Literal": {
++                  "Value": "'Segoe UI'"
++                }
++              }
++            },
++            "labelColor": {
++              "solid": {
++                "color": {
++                  "expr": {
++                    "Literal": {
++                      "Value": "'#475569'"
++                    }
++                  }
++                }
++              }
++            },
++            "showAxisTitle": {
++              "expr": {
++                "Literal": {
++                  "Value": "false"
++                }
++              }
++            },
++            "gridlineShow": {
++              "expr": {
++                "Literal": {
++                  "Value": "true"
++                }
++              }
++            },
++            "gridlineColor": {
++              "solid": {
++                "color": {
++                  "expr": {
++                    "Literal": {
++                      "Value": "'#E2E8F0'"
++                    }
++                  }
++                }
++              }
++            }
++          }
++        }
++      ],
++      "legend": [
++        {
++          "properties": {
++            "show": {
++              "expr": {
++                "Literal": {
++                  "Value": "false"
++                }
++              }
++            }
++          }
++        }
++      ]
++    },
+     "visualContainerObjects": {
+       "background": [
+         {
+@@ -126,7 +272,7 @@
+             "radius": {
+               "expr": {
+                 "Literal": {
+-                  "Value": "16D"
++                  "Value": "12D"
+                 }
+               }
+             }
+@@ -146,7 +292,7 @@
+             "text": {
+               "expr": {
+                 "Literal": {
+-                  "Value": "'Instrumentos por data'"
++                  "Value": "'Evolução temporal dos instrumentos'"
+                 }
+               }
+             },
+@@ -164,7 +310,7 @@
+             "fontSize": {
+               "expr": {
+                 "Literal": {
+-                  "Value": "12D"
++                  "Value": "11D"
+                 }
+               }
+             },
+@@ -231,6 +377,19 @@
+             }
+           }
+         }
++      ],
++      "dropShadow": [
++        {
++          "properties": {
++            "show": {
++              "expr": {
++                "Literal": {
++                  "Value": "true"
++                }
++              }
++            }
++          }
++        }
+       ]
+     },
+     "drillFilterOtherVisuals": true
+diff --git a/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/shape_header/visual.json b/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/shape_header/visual.json
+new file mode 100644
+index 0000000..caac9d4
+--- /dev/null
++++ b/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/shape_header/visual.json
+@@ -0,0 +1,71 @@
++{
++  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
++  "name": "shape_header",
++  "position": {
++    "x": 0,
++    "y": 0,
++    "z": 200,
++    "height": 70,
++    "width": 1280,
++    "tabOrder": 0
++  },
++  "visual": {
++    "visualType": "shape",
++    "objects": {
++      "shape": [
++        {
++          "properties": {
++            "tileShape": {
++              "expr": {
++                "Literal": {
++                  "Value": "'rectangle'"
++                }
++              }
++            }
++          }
++        }
++      ],
++      "fill": [
++        {
++          "properties": {
++            "fillColor": {
++              "solid": {
++                "color": {
++                  "expr": {
++                    "Literal": {
++                      "Value": "'#0F2D5E'"
++                    }
++                  }
++                }
++              }
++            }
++          },
++          "selector": {
++            "id": "default"
++          }
++        }
++      ],
++      "outline": [
++        {
++          "properties": {
++            "lineColor": {
++              "solid": {
++                "color": {
++                  "expr": {
++                    "Literal": {
++                      "Value": "'#0F2D5E'"
++                    }
++                  }
++                }
++              }
++            }
++          },
++          "selector": {
++            "id": "default"
++          }
++        }
++      ]
++    },
++    "drillFilterOtherVisuals": true
++  }
++}
+diff --git a/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/table_recentes/visual.json b/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/table_recentes/visual.json
+index 05f9628..4e41ada 100644
+--- a/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/table_recentes/visual.json
++++ b/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/table_recentes/visual.json
+@@ -3,9 +3,9 @@
+   "name": "table_recentes",
+   "position": {
+     "x": 20,
+-    "y": 420,
++    "y": 444,
+     "z": 1300,
+-    "height": 276,
++    "height": 262,
+     "width": 1240,
+     "tabOrder": 11
+   },
+@@ -157,6 +157,148 @@
+         "isDefaultSort": true
+       }
+     },
++    "objects": {
++      "grid": [
++        {
++          "properties": {
++            "gridVertical": {
++              "expr": {
++                "Literal": {
++                  "Value": "false"
++                }
++              }
++            },
++            "gridHorizontal": {
++              "expr": {
++                "Literal": {
++                  "Value": "true"
++                }
++              }
++            },
++            "gridHorizontalColor": {
++              "solid": {
++                "color": {
++                  "expr": {
++                    "Literal": {
++                      "Value": "'#E2E8F0'"
++                    }
++                  }
++                }
++              }
++            },
++            "outlineColor": {
++              "solid": {
++                "color": {
++                  "expr": {
++                    "Literal": {
++                      "Value": "'#E2E8F0'"
++                    }
++                  }
++                }
++              }
++            },
++            "rowPadding": {
++              "expr": {
++                "Literal": {
++                  "Value": "3D"
++                }
++              }
++            }
++          }
++        }
++      ],
++      "columnHeaders": [
++        {
++          "properties": {
++            "fontColor": {
++              "solid": {
++                "color": {
++                  "expr": {
++                    "Literal": {
++                      "Value": "'#0F172A'"
++                    }
++                  }
++                }
++              }
++            },
++            "backColor": {
++              "solid": {
++                "color": {
++                  "expr": {
++                    "Literal": {
++                      "Value": "'#F8FAFC'"
++                    }
++                  }
++                }
++              }
++            },
++            "bold": {
++              "expr": {
++                "Literal": {
++                  "Value": "true"
++                }
++              }
++            },
++            "fontSize": {
++              "expr": {
++                "Literal": {
++                  "Value": "10D"
++                }
++              }
++            },
++            "fontFamily": {
++              "expr": {
++                "Literal": {
++                  "Value": "'Segoe UI Semibold'"
++                }
++              }
++            }
++          }
++        }
++      ],
++      "values": [
++        {
++          "properties": {
++            "fontColor": {
++              "solid": {
++                "color": {
++                  "expr": {
++                    "Literal": {
++                      "Value": "'#334155'"
++                    }
++                  }
++                }
++              }
++            },
++            "fontSize": {
++              "expr": {
++                "Literal": {
++                  "Value": "10D"
++                }
++              }
++            },
++            "fontFamily": {
++              "expr": {
++                "Literal": {
++                  "Value": "'Segoe UI'"
++                }
++              }
++            },
++            "backColor": {
++              "solid": {
++                "color": {
++                  "expr": {
++                    "Literal": {
++                      "Value": "'#FFFFFF'"
++                    }
++                  }
++                }
++              }
++            }
++          }
++        }
++      ]
++    },
+     "visualContainerObjects": {
+       "background": [
+         {
+@@ -213,7 +355,7 @@
+             "radius": {
+               "expr": {
+                 "Literal": {
+-                  "Value": "16D"
++                  "Value": "12D"
+                 }
+               }
+             }
+@@ -251,7 +393,7 @@
+             "fontSize": {
+               "expr": {
+                 "Literal": {
+-                  "Value": "12D"
++                  "Value": "11D"
+                 }
+               }
+             },
+@@ -318,6 +460,19 @@
+             }
+           }
+         }
++      ],
++      "dropShadow": [
++        {
++          "properties": {
++            "show": {
++              "expr": {
++                "Literal": {
++                  "Value": "true"
++                }
++              }
++            }
++          }
++        }
+       ]
+     },
+     "drillFilterOtherVisuals": true
+diff --git a/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/txt_subtitle/visual.json b/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/txt_subtitle/visual.json
+index 1d5a892..29e4e38 100644
+--- a/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/txt_subtitle/visual.json
++++ b/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/txt_subtitle/visual.json
+@@ -3,7 +3,7 @@
+   "name": "txt_subtitle",
+   "position": {
+     "x": 20,
+-    "y": 46,
++    "y": 42,
+     "z": 1000,
+     "height": 22,
+     "width": 920,
+@@ -19,11 +19,11 @@
+               {
+                 "textRuns": [
+                   {
+-                    "value": "Painel operacional com estética clean, cartões suaves e foco nos principais indicadores.",
++                    "value": "Painel operacional · Instrumentos, vigências, aditivos e partícipes",
+                     "textStyle": {
+                       "fontSize": "10pt",
+                       "fontFamily": "Segoe UI",
+-                      "color": "#64748B"
++                      "color": "#94A3B8"
+                     }
+                   }
+                 ],
+diff --git a/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/txt_title/visual.json b/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/txt_title/visual.json
+index 7a21c2e..1289360 100644
+--- a/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/txt_title/visual.json
++++ b/nucleo_de_convenios_tjba.Report/definition/pages/660b216e0bc390ac0036/visuals/txt_title/visual.json
+@@ -3,9 +3,9 @@
+   "name": "txt_title",
+   "position": {
+     "x": 20,
+-    "y": 14,
++    "y": 10,
+     "z": 1000,
+-    "height": 34,
++    "height": 30,
+     "width": 760,
+     "tabOrder": 1
+   },
+@@ -19,11 +19,11 @@
+               {
+                 "textRuns": [
+                   {
+-                    "value": "Núcleo de Convênios",
++                    "value": "Núcleo de Convênios · TJBA",
+                     "textStyle": {
+-                      "fontSize": "24pt",
++                      "fontSize": "18pt",
+                       "fontFamily": "Segoe UI Semibold",
+-                      "color": "#0F172A"
++                      "color": "#FFFFFF"
+                     }
+                   }
+                 ],
+-- 
+2.43.0
+
