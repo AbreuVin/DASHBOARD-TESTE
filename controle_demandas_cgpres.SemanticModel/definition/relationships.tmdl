@@ -1,0 +1,8 @@
+relationship 1643d9c2-ec9d-504b-ad32-f7a126a984ad
+	fromColumn: diligencias.dataRecebimento
+	toColumn: calendario.Data
+
+relationship e161b677-55bd-53fe-ba09-95d5d6032b5b
+	isActive: false
+	fromColumn: diligencias.dataEntrega
+	toColumn: calendario.Data

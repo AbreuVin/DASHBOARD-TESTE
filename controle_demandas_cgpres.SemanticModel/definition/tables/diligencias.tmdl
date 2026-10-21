@@ -1,0 +1,454 @@
+table diligencias
+	lineageTag: 2e064285-cebd-5068-af06-506e3f3140ac
+
+	measure 'Diligências recebidas' = COUNTROWS ( 'diligencias' )
+		formatString: #,##0
+		displayFolder: Indicadores
+		lineageTag: b3d6c31d-5bdb-5dc9-8314-18432162d635
+
+	measure 'Finalizadas' = CALCULATE ( COUNTROWS ( 'diligencias' ), 'diligencias'[Status] = "Finalizada" )
+		formatString: #,##0
+		displayFolder: Indicadores
+		lineageTag: cc84c660-51ef-536f-a6b3-cb49f72ad4d8
+
+	measure 'Em tramitação' = CALCULATE ( COUNTROWS ( 'diligencias' ), 'diligencias'[Status] = "Em tramitação" )
+		formatString: #,##0
+		displayFolder: Indicadores
+		lineageTag: 5ab82c14-2819-5442-afb3-900fb1eb44d7
+
+	measure 'Entregue no prazo' = CALCULATE ( COUNTROWS ( 'diligencias' ), 'diligencias'[Situação do prazo] = "Entregue no prazo" )
+		formatString: #,##0
+		displayFolder: Situação do prazo
+		lineageTag: 68276ff9-8085-540a-b28f-8a5173f189ad
+
+	measure 'Entregue com atraso' = CALCULATE ( COUNTROWS ( 'diligencias' ), 'diligencias'[Situação do prazo] = "Entregue com atraso" )
+		formatString: #,##0
+		displayFolder: Situação do prazo
+		lineageTag: 46594523-072c-5f94-8674-8a9429f23946
+
+	measure 'Em andamento no prazo' = CALCULATE ( COUNTROWS ( 'diligencias' ), 'diligencias'[Situação do prazo] = "Em andamento no prazo" )
+		formatString: #,##0
+		displayFolder: Situação do prazo
+		lineageTag: e0afd9ba-a791-5111-8a78-09880482520b
+
+	measure 'Em andamento com prazo vencido' = CALCULATE ( COUNTROWS ( 'diligencias' ), 'diligencias'[Situação do prazo] = "Em andamento com prazo vencido" )
+		formatString: #,##0
+		displayFolder: Situação do prazo
+		lineageTag: b38dab01-86fa-5d76-a2db-a3b7a1ea88e5
+
+	measure 'Dentro do prazo' = CALCULATE ( COUNTROWS ( 'diligencias' ), 'diligencias'[Cumprimento do prazo] = "Dentro do prazo" )
+		formatString: #,##0
+		displayFolder: Situação do prazo
+		lineageTag: d1d1842e-8fdd-571b-9dfc-5433572b8b6b
+
+	measure 'Fora do prazo' = CALCULATE ( COUNTROWS ( 'diligencias' ), 'diligencias'[Cumprimento do prazo] = "Fora do prazo" )
+		formatString: #,##0
+		displayFolder: Situação do prazo
+		lineageTag: be148bdd-5a24-5708-bee3-da14a5c1c866
+
+	measure '% entregue no prazo' = DIVIDE ( [Entregue no prazo], [Finalizadas] )
+		formatString: 0.0%
+		displayFolder: Indicadores
+		lineageTag: f35c0b96-ab7a-5126-a4e9-09875e9d9fd9
+
+	measure '% entregue no prazo interno' =
+			DIVIDE (
+			    CALCULATE ( COUNTROWS ( 'diligencias' ), 'diligencias'[Prazo interno cumprido] = "Sim" ),
+			    [Finalizadas]
+			)
+		formatString: 0.0%
+		displayFolder: Indicadores
+		lineageTag: edead8ed-4ff5-59e8-b98e-4470aefc3d22
+
+	measure 'Vencem nos próximos 7 dias' =
+			VAR _hoje = TODAY ()
+			RETURN
+			    CALCULATE (
+			        COUNTROWS ( 'diligencias' ),
+			        'diligencias'[Status] = "Em tramitação",
+			        'diligencias'[prazoExterno] >= _hoje && 'diligencias'[prazoExterno] <= _hoje + 7
+			    )
+		formatString: #,##0
+		displayFolder: Indicadores
+		lineageTag: 8af79a78-7319-5fb9-bcaf-5f7bf6690b7c
+
+	measure 'Finalizadas no mês' =
+			CALCULATE (
+			    [Finalizadas],
+			    USERELATIONSHIP ( 'calendario'[Data], 'diligencias'[dataEntrega] )
+			)
+		formatString: #,##0
+		displayFolder: Metas
+		lineageTag: b06563d8-fe61-55fd-a718-5ccad9991971
+
+	measure 'Entregues no prazo no mês' =
+			CALCULATE (
+			    [Entregue no prazo],
+			    USERELATIONSHIP ( 'calendario'[Data], 'diligencias'[dataEntrega] )
+			)
+		formatString: #,##0
+		displayFolder: Metas
+		lineageTag: b566e690-a169-54ff-a015-00a1a6449449
+
+	measure '% no prazo no mês' = DIVIDE ( [Entregues no prazo no mês], [Finalizadas no mês] )
+		formatString: 0.0%
+		displayFolder: Metas
+		lineageTag: 6ed03c5a-e998-5ad7-aea3-61e7d5b642f8
+
+	measure 'Meta de finalizadas' =
+			SUMX (
+			    VALUES ( 'calendario'[Mês] ),
+			    LOOKUPVALUE ( 'metas'[metaFinalizadas], 'metas'[mes], 'calendario'[Mês] )
+			)
+		formatString: #,##0
+		displayFolder: Metas
+		lineageTag: 3c3261e7-35d3-5c56-be7d-099905fb784d
+
+	measure 'Meta % no prazo' =
+			AVERAGEX (
+			    VALUES ( 'calendario'[Mês] ),
+			    LOOKUPVALUE ( 'metas'[metaPercNoPrazo], 'metas'[mes], 'calendario'[Mês] )
+			)
+		formatString: 0.0%
+		displayFolder: Metas
+		lineageTag: b309ed76-690f-5036-a744-36e3eb75726e
+
+	measure 'Atingimento da meta' = DIVIDE ( [Finalizadas no mês], [Meta de finalizadas] )
+		formatString: 0.0%
+		displayFolder: Metas
+		lineageTag: dc7ae127-c523-5814-95f5-4033d012b02e
+
+	measure 'Destaque' =
+			VAR _vencidas = [Em andamento com prazo vencido] + 0
+			VAR _semana = [Vencem nos próximos 7 dias] + 0
+			VAR _t1 =
+			    IF (
+			        _vencidas = 1,
+			        "1 diligência em andamento já passou do prazo externo",
+			        FORMAT ( _vencidas, "0" ) & " diligências em andamento já passaram do prazo externo"
+			    )
+			VAR _t2 =
+			    IF (
+			        _semana = 1,
+			        "1 vence nos próximos 7 dias",
+			        FORMAT ( _semana, "0" ) & " vencem nos próximos 7 dias"
+			    )
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        _vencidas = 0 && _semana = 0, "Nenhuma diligência em andamento está vencida ou vence nos próximos 7 dias.",
+			        _vencidas = 0, "Nenhuma diligência em andamento está vencida; " & _t2 & ".",
+			        _t1 & "; " & _t2 & "."
+			    )
+		displayFolder: Textos
+		lineageTag: 761da62b-10a9-5a1f-b29f-ac575006195e
+
+	measure 'Atualização dos dados' =
+			VAR _ultima =
+			    CALCULATE ( MAX ( 'diligencias'[dataRecebimento] ), REMOVEFILTERS () )
+			RETURN
+			    "Última diligência recebida em " & FORMAT ( _ultima, "dd/mm/yyyy" )
+		displayFolder: Textos
+		lineageTag: 39d94f49-9836-53ec-b3c1-ddc70a9963c4
+
+	measure 'Cor da situação' =
+			SWITCH (
+			    SELECTEDVALUE ( 'diligencias'[Situação do prazo] ),
+			    "Entregue no prazo", "#247B50",
+			    "Entregue com atraso", "#92400E",
+			    "Em andamento no prazo", "#1F4E8C",
+			    "Em andamento com prazo vencido", "#B42318",
+			    "#5F6368"
+			)
+		displayFolder: Textos
+		lineageTag: 1b4d59d1-a703-5b27-b7b3-00e1e6f09dd8
+
+	column numeroProcesso
+		dataType: string
+		lineageTag: 263ff5aa-fd22-5341-9434-45d7adc0de3d
+		summarizeBy: none
+		sourceColumn: numeroProcesso
+
+		annotation SummarizationSetBy = Automatic
+
+	column objeto
+		dataType: string
+		lineageTag: fa42eb27-fb34-5f69-8a41-8d898d1264b4
+		summarizeBy: none
+		sourceColumn: objeto
+
+		annotation SummarizationSetBy = Automatic
+
+	column tipoDiligencia
+		dataType: string
+		lineageTag: 0a7aec4e-5f12-5401-9a69-ea2197b32ad3
+		summarizeBy: none
+		sourceColumn: tipoDiligencia
+
+		annotation SummarizationSetBy = Automatic
+
+	column prioridade
+		dataType: string
+		lineageTag: 79a749dc-a49c-5fc0-825e-02c8e1b7aed2
+		summarizeBy: none
+		sourceColumn: prioridade
+
+		annotation SummarizationSetBy = Automatic
+
+	column setorResponsavel
+		dataType: string
+		lineageTag: 3188b5d3-198a-5fa2-a880-032305078cc0
+		summarizeBy: none
+		sourceColumn: setorResponsavel
+
+		annotation SummarizationSetBy = Automatic
+
+	column dataRecebimento
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: acb6909d-1413-59fc-a1a0-61d707f01fa3
+		summarizeBy: none
+		sourceColumn: dataRecebimento
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column prazoInterno
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 74651005-0112-5d00-baf3-22296a44a09f
+		summarizeBy: none
+		sourceColumn: prazoInterno
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column prazoExterno
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: fc7140ca-37c5-5d90-b0c3-9d80bc09df0d
+		summarizeBy: none
+		sourceColumn: prazoExterno
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column dataEntrega
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 0b878d11-6b1e-52d6-a160-9c3dc2b1bc97
+		summarizeBy: none
+		sourceColumn: dataEntrega
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Situação do prazo' =
+			VAR _entrega = 'diligencias'[dataEntrega]
+			VAR _limite = 'diligencias'[prazoExterno]
+			RETURN
+			    IF (
+			        NOT ISBLANK ( _entrega ),
+			        IF ( _entrega <= _limite, "Entregue no prazo", "Entregue com atraso" ),
+			        IF ( TODAY () <= _limite, "Em andamento no prazo", "Em andamento com prazo vencido" )
+			    )
+		dataType: string
+		displayFolder: Prazos
+		lineageTag: be0080b7-5320-52f8-a224-33f0ecf26274
+		summarizeBy: none
+		sortByColumn: 'Situação do prazo (ordem)'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Situação do prazo (ordem)' =
+			SWITCH (
+			    'diligencias'[Situação do prazo],
+			    "Entregue no prazo", 1,
+			    "Entregue com atraso", 2,
+			    "Em andamento no prazo", 3,
+			    4
+			)
+		dataType: int64
+		formatString: 0
+		isHidden
+		displayFolder: Prazos
+		lineageTag: 23c0413f-6f58-59d2-b1fe-2fb5e8ad25d1
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Cumprimento do prazo' =
+			IF (
+			    'diligencias'[Situação do prazo] IN { "Entregue no prazo", "Em andamento no prazo" },
+			    "Dentro do prazo",
+			    "Fora do prazo"
+			)
+		dataType: string
+		displayFolder: Prazos
+		lineageTag: 209b6e29-3026-51fe-9bd0-6d0f6da9f861
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Status' =
+			IF ( ISBLANK ( 'diligencias'[dataEntrega] ), "Em tramitação", "Finalizada" )
+		dataType: string
+		displayFolder: Prazos
+		lineageTag: dd86bd21-2d42-52de-a69b-d4fdc7072680
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Prazo interno cumprido' =
+			IF (
+			    ISBLANK ( 'diligencias'[dataEntrega] ),
+			    BLANK (),
+			    IF ( 'diligencias'[dataEntrega] <= 'diligencias'[prazoInterno], "Sim", "Não" )
+			)
+		dataType: string
+		displayFolder: Prazos
+		lineageTag: bfde54f8-fb7e-5345-bedd-43f33856a590
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dias de atraso' =
+			VAR _referencia =
+			    IF ( ISBLANK ( 'diligencias'[dataEntrega] ), TODAY (), 'diligencias'[dataEntrega] )
+			VAR _dias = INT ( _referencia ) - INT ( 'diligencias'[prazoExterno] )
+			RETURN
+			    IF ( _dias > 0, _dias, BLANK () )
+		dataType: int64
+		formatString: #,##0
+		displayFolder: Prazos
+		lineageTag: cc75296e-7b99-502b-9bf1-f2590c1d3fcd
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition diligencias = m
+		mode: import
+		source =
+				let
+				    // Dados fictícios. Para usar a lista real, troque as etapas Hoje..ComEntrega por
+				    // Fonte = SharePoint.Tables(...) e renomeie as colunas para os nomes abaixo.
+				    Hoje = Date.From ( DateTime.LocalNow () ),
+				    Base = #table (
+				        type table [
+				            numeroProcesso = text, objeto = text, tipoDiligencia = text, prioridade = text,
+				            setorResponsavel = text, diasDesdeRecebimento = number, prazoInternoDias = number,
+				            prazoExternoDias = number, entregaDias = nullable number
+				        ],
+				        {
+							{"TJ-ADM-2026/10000", "Precatórios", "Pedido de informação", "Normal", "Assessoria Jurídica", 279, 22, 27, 21},
+							{"TJ-ADM-2026/10037", "Orçamento e finanças", "Pedido de informação", "Normal", "Assessoria Técnica", 27, 13, 18, null},
+							{"TJ-ADM-2026/10074", "Tecnologia da informação", "Requisição de documentos", "Urgente", "Secretaria-Geral", 78, 1, 3, 1},
+							{"TJ-ADM-2026/10111", "Infraestrutura e obras", "Ofício", "Normal", "Cerimonial", 143, 19, 24, 19},
+							{"TJ-ADM-2026/10148", "Correição e disciplina", "Despacho", "Normal", "Gabinete", 217, 21, 25, 17},
+							{"TJ-ADM-2026/10185", "Orçamento e finanças", "Ofício", "Normal", "Gabinete", 123, 22, 25, 22},
+							{"TJ-ADM-2026/10222", "Gestão de pessoas", "Requisição de documentos", "Alta", "Cerimonial", 285, 9, 11, 14},
+							{"TJ-ADM-2026/10259", "Precatórios", "Pedido de informação", "Alta", "Cerimonial", 260, 9, 12, 11},
+							{"TJ-ADM-2026/10296", "Correição e disciplina", "Despacho", "Normal", "Assessoria Técnica", 127, 21, 26, 34},
+							{"TJ-ADM-2026/10333", "Correição e disciplina", "Pedido de informação", "Alta", "Assessoria Técnica", 114, 9, 13, 22},
+							{"TJ-ADM-2026/10370", "Infraestrutura e obras", "Requisição de documentos", "Alta", "Gabinete", 63, 6, 9, 21},
+							{"TJ-ADM-2026/10407", "Orçamento e finanças", "Ofício", "Alta", "Gabinete", 284, 9, 13, 5},
+							{"TJ-ADM-2026/10444", "Precatórios", "Ofício", "Alta", "Assessoria Técnica", 193, 7, 11, 4},
+							{"TJ-ADM-2026/10481", "Gestão de pessoas", "Ofício", "Normal", "Assessoria Técnica", 276, 23, 28, 27},
+							{"TJ-ADM-2025/10518", "Correição e disciplina", "Pedido de informação", "Normal", "Gabinete", 326, 14, 19, 15},
+							{"TJ-ADM-2026/10555", "Infraestrutura e obras", "Despacho", "Normal", "Gabinete", 220, 17, 22, 15},
+							{"TJ-ADM-2026/10592", "Orçamento e finanças", "Requisição de documentos", "Normal", "Gabinete", 112, 22, 24, 20},
+							{"TJ-ADM-2026/10629", "Precatórios", "Parecer", "Alta", "Assessoria Técnica", 46, 9, 11, null},
+							{"TJ-ADM-2026/10666", "Tecnologia da informação", "Requisição de documentos", "Urgente", "Assessoria Jurídica", 137, 1, 6, 1},
+							{"TJ-ADM-2026/10703", "Correição e disciplina", "Despacho", "Alta", "Gabinete", 115, 7, 12, 7},
+							{"TJ-ADM-2026/10740", "Tecnologia da informação", "Ofício", "Normal", "Gabinete", 207, 15, 17, 13},
+							{"TJ-ADM-2026/10777", "Precatórios", "Pedido de informação", "Alta", "Assessoria Técnica", 181, 10, 15, 8},
+							{"TJ-ADM-2025/10814", "Tecnologia da informação", "Despacho", "Normal", "Cerimonial", 309, 16, 18, 18},
+							{"TJ-ADM-2026/10851", "Infraestrutura e obras", "Parecer", "Normal", "Assessoria Técnica", 179, 15, 19, 29},
+							{"TJ-ADM-2026/10888", "Tecnologia da informação", "Parecer", "Normal", "Gabinete", 111, 14, 19, null},
+							{"TJ-ADM-2026/10925", "Correição e disciplina", "Parecer", "Alta", "Assessoria Técnica", 108, 8, 13, 15},
+							{"TJ-ADM-2026/10962", "Orçamento e finanças", "Despacho", "Normal", "Assessoria Jurídica", 14, 13, 18, 9},
+							{"TJ-ADM-2025/10999", "Precatórios", "Requisição de documentos", "Normal", "Assessoria Técnica", 324, 14, 16, 15},
+							{"TJ-ADM-2026/11036", "Infraestrutura e obras", "Requisição de documentos", "Normal", "Secretaria-Geral", 86, 17, 22, 22},
+							{"TJ-ADM-2026/11073", "Correição e disciplina", "Requisição de documentos", "Normal", "Assessoria Técnica", 128, 12, 16, 12},
+							{"TJ-ADM-2026/11110", "Infraestrutura e obras", "Despacho", "Urgente", "Gabinete", 286, 2, 4, 4},
+							{"TJ-ADM-2026/11147", "Precatórios", "Pedido de informação", "Alta", "Secretaria-Geral", 262, 5, 10, 18},
+							{"TJ-ADM-2026/11184", "Precatórios", "Ofício", "Alta", "Assessoria Jurídica", 259, 7, 11, 4},
+							{"TJ-ADM-2026/11221", "Orçamento e finanças", "Despacho", "Normal", "Cerimonial", 43, 23, 25, 30},
+							{"TJ-ADM-2026/11258", "Correição e disciplina", "Parecer", "Normal", "Assessoria Técnica", 249, 18, 21, 31},
+							{"TJ-ADM-2026/11295", "Correição e disciplina", "Requisição de documentos", "Alta", "Gabinete", 259, 3, 8, 11},
+							{"TJ-ADM-2026/11332", "Correição e disciplina", "Parecer", "Alta", "Cerimonial", 14, 11, 15, null},
+							{"TJ-ADM-2026/11369", "Infraestrutura e obras", "Pedido de informação", "Urgente", "Gabinete", 53, 1, 3, 3},
+							{"TJ-ADM-2026/11406", "Gestão de pessoas", "Despacho", "Normal", "Gabinete", 141, 25, 27, 27},
+							{"TJ-ADM-2026/11443", "Precatórios", "Requisição de documentos", "Normal", "Gabinete", 10, 34, 39, null},
+							{"TJ-ADM-2026/11480", "Tecnologia da informação", "Pedido de informação", "Normal", "Assessoria Jurídica", 66, 27, 29, 25},
+							{"TJ-ADM-2025/11517", "Tecnologia da informação", "Despacho", "Alta", "Gabinete", 302, 7, 9, 5},
+							{"TJ-ADM-2026/11554", "Orçamento e finanças", "Pedido de informação", "Normal", "Secretaria-Geral", 262, 21, 23, 17},
+							{"TJ-ADM-2025/11591", "Infraestrutura e obras", "Ofício", "Normal", "Gabinete", 294, 21, 24, 21},
+							{"TJ-ADM-2026/11628", "Precatórios", "Pedido de informação", "Normal", "Assessoria Técnica", 145, 15, 19, 13},
+							{"TJ-ADM-2026/11665", "Precatórios", "Despacho", "Normal", "Secretaria-Geral", 141, 15, 17, 20},
+							{"TJ-ADM-2026/11702", "Gestão de pessoas", "Ofício", "Normal", "Cerimonial", 65, 27, 32, 36},
+							{"TJ-ADM-2026/11739", "Orçamento e finanças", "Parecer", "Normal", "Gabinete", 265, 18, 20, 16},
+							{"TJ-ADM-2025/11776", "Correição e disciplina", "Pedido de informação", "Alta", "Cerimonial", 327, 11, 15, 11},
+							{"TJ-ADM-2026/11813", "Orçamento e finanças", "Requisição de documentos", "Urgente", "Gabinete", 95, 4, 7, 3},
+							{"TJ-ADM-2025/11850", "Tecnologia da informação", "Pedido de informação", "Normal", "Secretaria-Geral", 311, 13, 15, 25},
+							{"TJ-ADM-2026/11887", "Orçamento e finanças", "Despacho", "Alta", "Assessoria Jurídica", 120, 6, 8, null},
+							{"TJ-ADM-2026/11924", "Correição e disciplina", "Ofício", "Normal", "Gabinete", 94, 32, 37, 32},
+							{"TJ-ADM-2026/11961", "Precatórios", "Pedido de informação", "Urgente", "Gabinete", 77, 2, 4, 2},
+							{"TJ-ADM-2026/11998", "Correição e disciplina", "Ofício", "Normal", "Assessoria Técnica", 240, 22, 26, 18},
+							{"TJ-ADM-2026/12035", "Infraestrutura e obras", "Pedido de informação", "Normal", "Cerimonial", 92, 20, 25, 17},
+							{"TJ-ADM-2026/12072", "Gestão de pessoas", "Parecer", "Normal", "Gabinete", 111, 27, 32, null},
+							{"TJ-ADM-2026/12109", "Orçamento e finanças", "Despacho", "Alta", "Cerimonial", 41, 7, 10, 3},
+							{"TJ-ADM-2026/12146", "Gestão de pessoas", "Despacho", "Alta", "Gabinete", 240, 13, 15, 15},
+							{"TJ-ADM-2026/12183", "Orçamento e finanças", "Parecer", "Normal", "Gabinete", 164, 35, 37, 31},
+							{"TJ-ADM-2025/12220", "Gestão de pessoas", "Requisição de documentos", "Alta", "Assessoria Técnica", 315, 4, 8, 3},
+							{"TJ-ADM-2025/12257", "Orçamento e finanças", "Parecer", "Normal", "Assessoria Técnica", 329, 30, 33, 39},
+							{"TJ-ADM-2026/12294", "Orçamento e finanças", "Pedido de informação", "Normal", "Assessoria Técnica", 81, 32, 36, 36},
+							{"TJ-ADM-2025/12331", "Gestão de pessoas", "Despacho", "Normal", "Assessoria Técnica", 294, 29, 32, 30},
+							{"TJ-ADM-2026/12368", "Infraestrutura e obras", "Pedido de informação", "Normal", "Gabinete", 70, 22, 27, 23},
+							{"TJ-ADM-2026/12405", "Orçamento e finanças", "Ofício", "Normal", "Gabinete", 199, 32, 35, 28},
+							{"TJ-ADM-2026/12442", "Precatórios", "Requisição de documentos", "Normal", "Gabinete", 284, 22, 27, 21},
+							{"TJ-ADM-2026/12479", "Infraestrutura e obras", "Parecer", "Alta", "Assessoria Jurídica", 268, 7, 9, 6},
+							{"TJ-ADM-2025/12516", "Correição e disciplina", "Despacho", "Urgente", "Assessoria Técnica", 298, 3, 6, 5},
+							{"TJ-ADM-2026/12553", "Orçamento e finanças", "Parecer", "Normal", "Cerimonial", 48, 33, 36, null},
+							{"TJ-ADM-2026/12590", "Gestão de pessoas", "Parecer", "Urgente", "Secretaria-Geral", 252, 1, 3, 1},
+							{"TJ-ADM-2026/12627", "Tecnologia da informação", "Parecer", "Urgente", "Cerimonial", 174, 2, 6, 3},
+							{"TJ-ADM-2026/12664", "Correição e disciplina", "Requisição de documentos", "Normal", "Assessoria Técnica", 101, 29, 31, 34},
+							{"TJ-ADM-2026/12701", "Tecnologia da informação", "Requisição de documentos", "Alta", "Assessoria Técnica", 242, 6, 11, 2},
+							{"TJ-ADM-2026/12738", "Infraestrutura e obras", "Ofício", "Normal", "Gabinete", 85, 11, 15, null},
+							{"TJ-ADM-2026/12775", "Correição e disciplina", "Requisição de documentos", "Normal", "Secretaria-Geral", 57, 14, 17, 17},
+							{"TJ-ADM-2025/12812", "Gestão de pessoas", "Despacho", "Normal", "Secretaria-Geral", 325, 33, 38, 30},
+							{"TJ-ADM-2026/12849", "Precatórios", "Parecer", "Normal", "Assessoria Jurídica", 68, 17, 22, 30},
+							{"TJ-ADM-2026/12886", "Orçamento e finanças", "Ofício", "Normal", "Assessoria Jurídica", 52, 28, 31, null},
+							{"TJ-ADM-2026/12923", "Gestão de pessoas", "Ofício", "Normal", "Assessoria Jurídica", 206, 19, 24, 19},
+							{"TJ-ADM-2026/12960", "Precatórios", "Pedido de informação", "Normal", "Secretaria-Geral", 102, 36, 38, 32},
+							{"TJ-ADM-2026/12997", "Infraestrutura e obras", "Despacho", "Alta", "Secretaria-Geral", 205, 10, 13, 16},
+							{"TJ-ADM-2026/13034", "Correição e disciplina", "Ofício", "Normal", "Assessoria Técnica", 103, 18, 20, 18},
+							{"TJ-ADM-2026/13071", "Precatórios", "Despacho", "Normal", "Assessoria Jurídica", 26, 24, 28, 23},
+							{"TJ-ADM-2026/13108", "Tecnologia da informação", "Ofício", "Alta", "Gabinete", 228, 7, 10, 8},
+							{"TJ-ADM-2026/13145", "Infraestrutura e obras", "Parecer", "Alta", "Assessoria Jurídica", 73, 9, 13, null},
+							{"TJ-ADM-2026/13182", "Precatórios", "Pedido de informação", "Normal", "Assessoria Técnica", 178, 24, 28, 33},
+							{"TJ-ADM-2026/13219", "Infraestrutura e obras", "Requisição de documentos", "Normal", "Cerimonial", 101, 34, 36, 34},
+							{"TJ-ADM-2026/13256", "Gestão de pessoas", "Despacho", "Normal", "Cerimonial", 198, 23, 27, 30},
+							{"TJ-ADM-2025/13293", "Infraestrutura e obras", "Pedido de informação", "Normal", "Assessoria Técnica", 319, 13, 17, 13},
+							{"TJ-ADM-2026/13330", "Tecnologia da informação", "Despacho", "Urgente", "Assessoria Jurídica", 286, 1, 4, 1},
+							{"TJ-ADM-2026/13367", "Infraestrutura e obras", "Pedido de informação", "Normal", "Cerimonial", 242, 31, 33, 31},
+							{"TJ-ADM-2026/13404", "Tecnologia da informação", "Requisição de documentos", "Normal", "Secretaria-Geral", 133, 27, 32, null},
+							{"TJ-ADM-2026/13441", "Precatórios", "Ofício", "Normal", "Gabinete", 254, 17, 20, null},
+							{"TJ-ADM-2026/13478", "Tecnologia da informação", "Requisição de documentos", "Normal", "Gabinete", 180, 13, 15, 11},
+							{"TJ-ADM-2026/13515", "Correição e disciplina", "Parecer", "Alta", "Assessoria Técnica", 0, 6, 8, null}
+				        }
+				    ),
+				    ComRecebimento = Table.AddColumn ( Base, "dataRecebimento", each Date.AddDays ( Hoje, - [diasDesdeRecebimento] ), type date ),
+				    ComPrazoInterno = Table.AddColumn ( ComRecebimento, "prazoInterno", each Date.AddDays ( [dataRecebimento], [prazoInternoDias] ), type date ),
+				    ComPrazoExterno = Table.AddColumn ( ComPrazoInterno, "prazoExterno", each Date.AddDays ( [dataRecebimento], [prazoExternoDias] ), type date ),
+				    ComEntrega = Table.AddColumn ( ComPrazoExterno, "dataEntrega", each if [entregaDias] = null then null else Date.AddDays ( [dataRecebimento], [entregaDias] ), type nullable date ),
+				    Final = Table.SelectColumns ( ComEntrega, { "numeroProcesso", "objeto", "tipoDiligencia", "prioridade", "setorResponsavel", "dataRecebimento", "prazoInterno", "prazoExterno", "dataEntrega" } )
+				in
+				    Final
+
+	annotation PBI_ResultType = Table
+

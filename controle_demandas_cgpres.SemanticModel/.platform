@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "controle_demandas_cgpres"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "1d53f9a3-abe1-5841-86c1-2200b3de8554"
+  }
+}

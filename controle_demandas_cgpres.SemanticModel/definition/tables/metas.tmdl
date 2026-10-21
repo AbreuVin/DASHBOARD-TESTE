@@ -1,0 +1,48 @@
+table metas
+	lineageTag: d6f940c6-6f1e-5c31-be51-9132409f0a0d
+
+	column mes
+		dataType: dateTime
+		formatString: mmm/yyyy
+		lineageTag: a789382b-7870-58a6-89f0-8d8ae53837d1
+		summarizeBy: none
+		sourceColumn: mes
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column metaFinalizadas
+		dataType: int64
+		formatString: #,##0
+		lineageTag: 7860d5a2-bddf-5678-b268-0724e916b0e0
+		summarizeBy: sum
+		sourceColumn: metaFinalizadas
+
+		annotation SummarizationSetBy = Automatic
+
+	column metaPercNoPrazo
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 178f4bcd-4f09-57dc-896f-5867b65cb9fc
+		summarizeBy: none
+		sourceColumn: metaPercNoPrazo
+
+		annotation SummarizationSetBy = Automatic
+
+	partition metas = m
+		mode: import
+		source =
+				let
+				    // Metas fictícias: uma linha por mês. Na versão real, aponte para a lista de metas da CGPRES.
+				    Hoje = Date.From ( DateTime.LocalNow () ),
+				    Inicio = Date.StartOfMonth ( Date.AddMonths ( Hoje, -11 ) ),
+				    Meses = List.Transform ( { 0 .. 11 }, each Date.AddMonths ( Inicio, _ ) ),
+				    Tabela = Table.FromColumns ( { Meses }, type table [ mes = date ] ),
+				    ComMeta = Table.AddColumn ( Tabela, "metaFinalizadas", each 8, Int64.Type ),
+				    ComMetaPrazo = Table.AddColumn ( ComMeta, "metaPercNoPrazo", each 0.85, type number )
+				in
+				    ComMetaPrazo
+
+	annotation PBI_ResultType = Table
+
