@@ -35,7 +35,7 @@ table historicoAlteracoes
 
 	column dataAlteracao
 		dataType: dateTime
-		formatString: dd/mm/yyyy
+		formatString: General Date
 		lineageTag: 5efe0282-01bc-45b9-952b-c2da4c79e60b
 		summarizeBy: none
 		sourceColumn: dataAlteracao
