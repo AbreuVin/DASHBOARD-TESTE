@@ -35,7 +35,7 @@ table aditivos
 
 	column dataAssinaturaAditivo
 		dataType: dateTime
-		formatString: General Date
+		formatString: dd/mm/yyyy
 		lineageTag: 1b6c2242-e671-48b4-8661-7e1f9ce1c09c
 		summarizeBy: none
 		sourceColumn: dataAssinaturaAditivo
@@ -158,6 +158,18 @@ table aditivos
 		lineageTag: 6d8a1024-b988-4b34-b61e-7cdb1266bc04
 		summarizeBy: none
 		sourceColumn: Modificado por.email
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Mês de assinatura' =
+			VAR _data = 'aditivos'[dataAssinaturaAditivo]
+			RETURN
+			    IF ( ISBLANK ( _data ), BLANK (), DATE ( YEAR ( _data ), MONTH ( _data ), 1 ) )
+		dataType: dateTime
+		formatString: mmm/yyyy
+		displayFolder: CGPRES
+		lineageTag: 7c1e0a51-3b2d-4f6e-9a10-c6e5a0b10005
+		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
 

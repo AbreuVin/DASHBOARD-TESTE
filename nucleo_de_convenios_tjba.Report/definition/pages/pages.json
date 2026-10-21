@@ -1,7 +1,10 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/pagesMetadata/1.1.0/schema.json",
   "pageOrder": [
+    "cgpres_panorama",
+    "cgpres_vigencias",
+    "cgpres_participes",
     "660b216e0bc390ac0036"
   ],
-  "activePageName": "660b216e0bc390ac0036"
+  "activePageName": "cgpres_panorama"
 }

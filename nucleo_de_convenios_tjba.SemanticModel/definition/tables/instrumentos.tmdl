@@ -125,7 +125,7 @@ table instrumentos
 
 	column dataInicioVigenciaTermo
 		dataType: dateTime
-		formatString: General Date
+		formatString: dd/mm/yyyy
 		lineageTag: cd8793aa-3093-478d-a2af-3979402e5eb9
 		summarizeBy: none
 		sourceColumn: dataInicioVigenciaTermo
@@ -139,7 +139,7 @@ table instrumentos
 
 	column dataFimVigenciaTermo
 		dataType: dateTime
-		formatString: General Date
+		formatString: dd/mm/yyyy
 		lineageTag: 34d22be9-59b4-47ea-a252-9cbf08bcac77
 		summarizeBy: none
 		sourceColumn: dataFimVigenciaTermo
@@ -175,7 +175,7 @@ table instrumentos
 
 	column Modificado
 		dataType: dateTime
-		formatString: General Date
+		formatString: dd/mm/yyyy
 		lineageTag: d33c336d-0deb-4c4f-87f2-21d3472e2cef
 		summarizeBy: none
 		sourceColumn: Modificado
@@ -189,7 +189,7 @@ table instrumentos
 
 	column dataFimVigenciaEfetiva
 		dataType: dateTime
-		formatString: General Date
+		formatString: dd/mm/yyyy
 		lineageTag: 64e1b8e3-2fdc-4d5b-8452-e74f7e72d848
 		summarizeBy: none
 		sourceColumn: dataFimVigenciaEfetiva
@@ -206,6 +206,71 @@ table instrumentos
 		lineageTag: c35846be-5a60-4774-83bb-8e4ddf9bbd0e
 		summarizeBy: none
 		sourceColumn: origemTermo
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dias para vencer' =
+			VAR _fim = 'instrumentos'[dataFimVigenciaEfetiva]
+			RETURN
+			    IF ( ISBLANK ( _fim ), BLANK (), INT ( _fim ) - INT ( TODAY () ) )
+		dataType: int64
+		formatString: #,##0
+		displayFolder: CGPRES
+		lineageTag: 7c1e0a51-3b2d-4f6e-9a10-c6e5a0b10001
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+	column 'Faixa de vencimento' =
+			VAR _d = 'instrumentos'[Dias para vencer]
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        ISBLANK ( _d ), "Sem data de término",
+			        _d < 0, "Encerrado",
+			        _d <= 30, "Até 30 dias",
+			        _d <= 90, "31 a 90 dias",
+			        _d <= 180, "91 a 180 dias",
+			        "Mais de 180 dias"
+			    )
+		dataType: string
+		displayFolder: CGPRES
+		lineageTag: 7c1e0a51-3b2d-4f6e-9a10-c6e5a0b10002
+		summarizeBy: none
+		sortByColumn: 'Faixa de vencimento (ordem)'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Faixa de vencimento (ordem)' =
+			VAR _d = 'instrumentos'[Dias para vencer]
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        ISBLANK ( _d ), 6,
+			        _d < 0, 5,
+			        _d <= 30, 1,
+			        _d <= 90, 2,
+			        _d <= 180, 3,
+			        4
+			    )
+		dataType: int64
+		formatString: 0
+		isHidden
+		displayFolder: CGPRES
+		lineageTag: 7c1e0a51-3b2d-4f6e-9a10-c6e5a0b10003
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+	column 'Mês de vencimento' =
+			VAR _fim = 'instrumentos'[dataFimVigenciaEfetiva]
+			RETURN
+			    IF ( ISBLANK ( _fim ), BLANK (), DATE ( YEAR ( _fim ), MONTH ( _fim ), 1 ) )
+		dataType: dateTime
+		formatString: mmm/yyyy
+		displayFolder: CGPRES
+		lineageTag: 7c1e0a51-3b2d-4f6e-9a10-c6e5a0b10004
+		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
 
